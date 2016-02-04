@@ -9,4 +9,7 @@
   <ItemGroup>
     <ClInclude Include="level.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="level.cpp" />
+  </ItemGroup>
 </Project>

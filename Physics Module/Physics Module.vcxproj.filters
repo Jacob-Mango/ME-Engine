@@ -9,4 +9,7 @@
   <ItemGroup>
     <ClInclude Include="physics.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="physics.cpp" />
+  </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ private:
 	int m_UpdatesPerSecond;
 
 	Rendering::RenderModule* m_RenderModule;
+	Level::Level* m_Level;
 protected:
 	MangoesEngine() {
 		m_RenderModule = new Rendering::RenderModule();

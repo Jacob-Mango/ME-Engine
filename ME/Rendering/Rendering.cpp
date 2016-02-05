@@ -6,6 +6,7 @@ namespace Rendering {
 		m_Title = title;
 		m_Width = width;
 		m_Height = height;
+		m_CursorFocused = false;
 		if (!glfwInit()) {
 			return -1;
 		}
@@ -59,6 +60,8 @@ namespace Rendering {
 	}
 
 	int RenderModule::PrepareRender() {
+		glClearColor(0.9f, 0.3f, 0.4f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		return 0;
 	}
 

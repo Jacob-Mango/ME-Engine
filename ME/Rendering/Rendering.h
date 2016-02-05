@@ -1,19 +1,17 @@
 #pragma once
 
+#define MAX_KEYS		1024
+#define MAX_BUTTONS		32
+
+#include <iostream>
 #include <vector>
 #include <string>
 
 #include <glm\glm.hpp>
-
-#define RENDER_ENGINE_OPENGL
-#define MAX_KEYS		1024
-#define MAX_BUTTONS		32
-
-#ifdef RENDER_ENGINE_OPENGL
 #include <glew\glew.h>
 #include <GLFW\glfw3.h>
 
-#include "GLShader.h"
+#include "Shader.h"
 
 namespace Rendering {
 	class RenderModule {
@@ -58,11 +56,3 @@ namespace Rendering {
 		friend void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 	};
 }
-#endif
-
-#ifdef RENDER_ENGINE_DIRECTX
-namespace Rendering {
-	class RenderModule {
-	}
-}
-#endif

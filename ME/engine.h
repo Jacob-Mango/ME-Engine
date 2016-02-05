@@ -1,24 +1,28 @@
 #pragma once
 
-#include <ME Engine\Rendering Module\rendering.h>
+#include "Rendering\Rendering.h"
 
-#include <ME Engine\Physics Module\physics.h>
-#include <ME Engine\Level Module\level.h>
+#include "Physics\Physics.h"
+#include "Level\Level.h"
 
-#include "timer.h"
+#include "Utils\Timer.h"
 
 class MangoesEngine {
-private:
+protected:
 	bool m_CanLoop = true;
 	int m_FramesPerSecond;
 	int m_UpdatesPerSecond;
-
+private:
 	Rendering::RenderModule* m_RenderModule;
 	Level::Level* m_Level;
 protected:
 	MangoesEngine(const char* title) {
 		m_RenderModule = new Rendering::RenderModule();
-		m_RenderModule->CreateWindow(1280, 720, title);
+		int e = m_RenderModule->CreateWindow(1280, 720, title);
+		if (e != 0) {
+			exit(e);
+		}
+		m_Level = new Level::Level();
 	}
 
 	void Loop() {
@@ -32,7 +36,7 @@ protected:
 			if (timer.elapsed() - updateTimer > updateTick) {
 				updates++;
 				updateTimer += updateTick;
-				Update();
+				Update(m_Level);
 			}
 			Render(m_RenderModule);
 			frames++;
@@ -51,7 +55,7 @@ protected:
 
 	}
 
-	virtual void Update() {
+	virtual void Update(Level::Level* level) {
 
 	}
 

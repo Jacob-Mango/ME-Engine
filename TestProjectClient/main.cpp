@@ -1,6 +1,8 @@
 #include <iostream>
 
-#include <ME Engine\ME\engine.h>
+#include <..\ME\Rendering\Rendering.h>
+#include <..\ME\engine.h>
+
 #include "Game.h"
 
 int main(void) {

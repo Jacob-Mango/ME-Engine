@@ -1,12 +1,10 @@
-#define DEBUG
-#define USE_WINDOWS
+#include <iostream>
 
-// #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-
-#include <engine.h>
-
+#include <ME Engine\ME\engine.h>
 #include "Game.h"
 
 int main(void) {
-	Game();
+	Game* g = new Game("TestProjectClient");
+	delete g;
+	return 0;
 }

@@ -19,14 +19,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -39,11 +39,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(WindowsSDK_IncludePath);$(SolutionDir)Dependencies;$(VC_IncludePath);$(SolutionDir)Level Module;$(SolutionDir)Rendering Module;$(SolutionDir)Physics Module;$(SolutionDir)ME Engine;$(SolutionDir)Debug;</IncludePath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(SolutionDir)Dependencies;$(VC_IncludePath);$(SolutionDir)..\;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)Dependencies;$(VC_IncludePath);$(SolutionDir)Debug;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(WindowsSDK_IncludePath);$(SolutionDir)Dependencies;$(VC_IncludePath);$(SolutionDir)Level Module;$(SolutionDir)Rendering Module;$(SolutionDir)Physics Module;$(SolutionDir)ME Engine;$(SolutionDir)Debug;</IncludePath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(SolutionDir)Dependencies;$(VC_IncludePath);$(SolutionDir)..\;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)Dependencies;$(VC_IncludePath);$(SolutionDir)Debug;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -81,11 +81,6 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ME Engine\ME Engine.vcxproj">
-      <Project>{0201b1a7-66fe-491f-bf29-8889fc749e50}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />

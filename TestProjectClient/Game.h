@@ -1,9 +1,12 @@
 #pragma once
-#include "engine.h"
+
+#include <ME Engine\Rendering Module\rendering.h>
+
+#include <ME Engine\ME\engine.h>
 
 class Game : public MangoesEngine {
 public:
-	Game();
+	Game(const char* title);
 	~Game();
 
 private:

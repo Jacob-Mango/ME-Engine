@@ -19,14 +19,14 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -82,12 +82,12 @@
     <ClInclude Include="loader.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="rendering.h" />
-    <ClInclude Include="Shader.h" />
+    <ClInclude Include="GLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="rendering.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="GLShader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

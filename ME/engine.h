@@ -1,10 +1,9 @@
 #pragma once
 
-#define USE_WINDOWS
+#include <ME Engine\Rendering Module\rendering.h>
 
-#include <rendering.h>
-#include <physics.h>
-#include <level.h>
+#include <ME Engine\Physics Module\physics.h>
+#include <ME Engine\Level Module\level.h>
 
 #include "timer.h"
 
@@ -17,8 +16,9 @@ private:
 	Rendering::RenderModule* m_RenderModule;
 	Level::Level* m_Level;
 protected:
-	MangoesEngine() {
+	MangoesEngine(const char* title) {
 		m_RenderModule = new Rendering::RenderModule();
+		m_RenderModule->CreateWindow(1280, 720, title);
 	}
 
 	void Loop() {
@@ -47,7 +47,15 @@ protected:
 		}
 	}
 
-	virtual void Render(Rendering::RenderModule *module);
-	virtual void Update();
-	virtual void Tick();
+	virtual void Render(Rendering::RenderModule* module) {
+
+	}
+
+	virtual void Update() {
+
+	}
+
+	virtual void Tick() {
+
+	}
 };

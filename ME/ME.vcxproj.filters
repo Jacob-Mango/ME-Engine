@@ -7,14 +7,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="rendering.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="loader.h" />
-    <ClInclude Include="GLShader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="rendering.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="GLShader.cpp" />
+    <ClInclude Include="engine.h" />
+    <ClInclude Include="timer.h" />
   </ItemGroup>
 </Project>

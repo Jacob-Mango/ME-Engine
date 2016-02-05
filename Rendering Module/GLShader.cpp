@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "GLShader.h"
 
 
 Shader::Shader() {

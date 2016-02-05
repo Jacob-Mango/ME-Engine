@@ -1,6 +1,8 @@
 #include "Game.h"
 
-Game::Game() {
+#include <iostream>
+
+Game::Game(const char* title) : MangoesEngine(title) {
 	Loop();
 }
 
@@ -13,7 +15,7 @@ void Game::Render(Rendering::RenderModule *module) {
 }
 
 void Game::Update() {
-
+	std::cout << "Works!" << std::endl;
 }
 
 void Game::Tick() {

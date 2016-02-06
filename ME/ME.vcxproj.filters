@@ -20,9 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.h" />
-    <ClInclude Include="Rendering\Loader.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -41,6 +38,12 @@
     <ClInclude Include="Level\Level.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\File.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">
@@ -57,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="Level\Level.cpp">
       <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

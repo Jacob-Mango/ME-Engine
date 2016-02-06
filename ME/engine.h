@@ -36,7 +36,7 @@ protected:
 			if (timer.elapsed() - updateTimer > updateTick) {
 				updates++;
 				updateTimer += updateTick;
-				Update(m_Level);
+				Update(m_Level, m_RenderModule);
 			}
 			Render(m_RenderModule);
 			frames++;
@@ -55,7 +55,7 @@ protected:
 
 	}
 
-	virtual void Update(Level::Level* level) {
+	virtual void Update(Level::Level* level, Rendering::RenderModule* module) {
 
 	}
 

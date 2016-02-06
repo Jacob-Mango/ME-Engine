@@ -3,17 +3,39 @@
 #define MAX_KEYS		1024
 #define MAX_BUTTONS		32
 
+#define M_PI 3.14159265358979323846264338327950288419716939937510
+
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 #include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+
 #include <glew\glew.h>
 #include <GLFW\glfw3.h>
 
 #include "Shader.h"
+#include "Model.h"
+#include "..\Utils\File.h"
+
+static float ToRadians(float r) {
+	return r / 180 * (float) M_PI;
+}
 
 namespace Rendering {
+
+	struct Camera {
+		glm::vec3 m_Position;
+		glm::vec3 m_Rotation;
+
+		Camera(glm::vec3 position, glm::vec3 rotation) {
+			m_Position = position;
+			m_Rotation = rotation;
+		}
+	};
+
 	class RenderModule {
 	private:
 		int m_Width;
@@ -27,26 +49,37 @@ namespace Rendering {
 		bool m_MouseButtons[MAX_BUTTONS];
 		bool m_MouseState[MAX_BUTTONS];
 		bool m_MouseClicked[MAX_BUTTONS];
-		double mx, my;
+		double mx, my; 
+		double mdx, mdy;
 		bool m_CursorFocused;
 
-		std::vector<GLuint> m_Models;
-		std::vector<glm::mat4> m_ModelMatrices;
-		std::vector<std::vector<glm::mat4>> m_ModelAnimMatrices;
+		std::vector<Model*> m_Models;
+		std::unordered_map<Model*, std::vector<glm::mat4>> m_ModelsToRender;
+
+		Shader* m_WorldShader; 
+		Shader* m_PPShader;
+		Camera* m_Camera;
 	public:
 		int CreateWindow(int width, int height, const char* title);
 
-		int LoadModels(std::vector<std::string> dirs);
-		int LoadTextures(std::vector<std::string> dirs);
+		int AddModel(const char* source);
+		int AddModelToRender(int id, glm::mat4 trans);
 
 		int PrepareRender();
 		int RenderWorld();
 		int RenderPostProccessEffects();
 		int EndRender();
 
-		Shader* GetShader();
+		Camera* GetCamera();
 
-		glm::vec2 GetMousePosition() const;
+		glm::vec2 GetWindowSize();
+
+		bool IsKeyPressed(unsigned int keycode) const;
+		bool IsKeyTyped(unsigned int keycode) const;
+		bool IsMouseButtonPressed(unsigned int button) const;
+		bool IsMouseButtonClicked(unsigned int button) const;
+		glm::vec2 GetMousePosition() const; 
+		glm::vec2 GetMouseDelta() const;
 		bool IsCursorFocused() const;
 		void SetCursor(bool r);
 	private:

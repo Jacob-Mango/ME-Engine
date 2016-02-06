@@ -3,7 +3,7 @@
 #define MAX_KEYS		1024
 #define MAX_BUTTONS		32
 
-#define M_PI 3.14159265358979323846264338327950288419716939937510
+#define M_PI 3.14159265358979323846
 
 #include <iostream>
 #include <vector>

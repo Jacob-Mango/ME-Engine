@@ -12,63 +12,63 @@ Game::~Game() {
 
 }
 
-void Game::Render(Rendering::RenderModule *module) {
+void Game::Render() {
 	if (m_Loading) {
-		module->AddModel("Resources/Models/ramp.obj");
+		m_RenderModule->AddModel("Resources/Models/ramp.obj");
 		m_Loading = false;
 	} else {
-		module->PrepareRender();
+		m_RenderModule->PrepareRender();
 
-		module->AddModelToRender(0, glm::mat4(0.0f));
+		m_RenderModule->AddModelToRender(0, glm::mat4(1.0f));
 
-		module->RenderWorld();
-		module->RenderPostProccessEffects();
-		module->EndRender();
+		m_RenderModule->RenderWorld();
+		m_RenderModule->RenderPostProccessEffects();
+		m_RenderModule->EndRender();
 	}
 }
 
-void Game::Update(Level::Level* level, Rendering::RenderModule* module) {
+void Game::Update() {
 	float speed = 1.0f / 30.0f;
 	glm::vec3 vel;
 
-	if (module->IsKeyPressed(GLFW_KEY_W)) {
-		vel.x += speed * sin(ToRadians(module->GetCamera()->m_Rotation.y));
-		vel.z -= speed * cos(ToRadians(module->GetCamera()->m_Rotation.y));
+	if (m_RenderModule->IsKeyPressed(GLFW_KEY_W)) {
+		vel.x += speed * sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
+		vel.z -= speed * cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
 	}
-	else if (module->IsKeyPressed(GLFW_KEY_S)) {
-		vel.x -= speed * sin(ToRadians(module->GetCamera()->m_Rotation.y));
-		vel.z += speed * cos(ToRadians(module->GetCamera()->m_Rotation.y));
-	}
-
-	if (module->IsKeyPressed(GLFW_KEY_A)) {
-		vel.x += speed * sin(ToRadians(module->GetCamera()->m_Rotation.y - 90));
-		vel.z -= speed * cos(ToRadians(module->GetCamera()->m_Rotation.y - 90));
-	}
-	else if (module->IsKeyPressed(GLFW_KEY_D)) {
-		vel.x += speed * sin(ToRadians(module->GetCamera()->m_Rotation.y + 90));
-		vel.z -= speed * cos(ToRadians(module->GetCamera()->m_Rotation.y + 90));
+	else if (m_RenderModule->IsKeyPressed(GLFW_KEY_S)) {
+		vel.x -= speed * sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
+		vel.z += speed * cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
 	}
 
-	if (module->IsKeyPressed(GLFW_KEY_SPACE)) {
+	if (m_RenderModule->IsKeyPressed(GLFW_KEY_A)) {
+		vel.x += speed * sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y - 90));
+		vel.z -= speed * cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y - 90));
+	}
+	else if (m_RenderModule->IsKeyPressed(GLFW_KEY_D)) {
+		vel.x += speed * sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y + 90));
+		vel.z -= speed * cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y + 90));
+	}
+
+	if (m_RenderModule->IsKeyPressed(GLFW_KEY_SPACE)) {
 		vel.y += speed;
 	}
-	else if (module->IsKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
+	else if (m_RenderModule->IsKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
 		vel.y -= speed;
 	}
 
-	module->GetCamera()->m_Position += vel;
+	m_RenderModule->GetCamera()->m_Position += vel;
 
 	float sensitivity = 50.0f / 100.0f;
 
-	glm::vec2 mouseMov = module->GetMouseDelta();
-	mouseMov.x = mouseMov.x > 0 ? 1 : mouseMov.x < 0 ? -1 : 0;
-	mouseMov.y = mouseMov.y > 0 ? 1 : mouseMov.y < 0 ? -1 : 0;
+	glm::vec2 mouseMov = m_RenderModule->GetMouseDelta();
+	mouseMov.x = mouseMov.x > 0.0f ? 1.0f : mouseMov.x < 0.0f ? -1.0f : 0.0f;
+	mouseMov.y = mouseMov.y > 0.0f ? 1.0f : mouseMov.y < 0.0f ? -1.0f : 0.0f;
 
-	module->GetCamera()->m_Rotation.x -= mouseMov.y * sensitivity;
-	module->GetCamera()->m_Rotation.y -= mouseMov.x * sensitivity;
+	m_RenderModule->GetCamera()->m_Rotation.x -= mouseMov.y * sensitivity;
+	m_RenderModule->GetCamera()->m_Rotation.y -= mouseMov.x * sensitivity;
 
-	if (module->GetCamera()->m_Rotation.x > 90) module->GetCamera()->m_Rotation.x = 90;
-	if (module->GetCamera()->m_Rotation.x < -90) module->GetCamera()->m_Rotation.x = -90;
+	if (m_RenderModule->GetCamera()->m_Rotation.x > 90) m_RenderModule->GetCamera()->m_Rotation.x = 90;
+	if (m_RenderModule->GetCamera()->m_Rotation.x < -90) m_RenderModule->GetCamera()->m_Rotation.x = -90;
 
 	
 }

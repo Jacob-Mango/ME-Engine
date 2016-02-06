@@ -12,7 +12,6 @@ protected:
 	bool m_CanLoop = true;
 	int m_FramesPerSecond;
 	int m_UpdatesPerSecond;
-private:
 	Rendering::RenderModule* m_RenderModule;
 	Level::Level* m_Level;
 protected:
@@ -36,9 +35,9 @@ protected:
 			if (timer.elapsed() - updateTimer > updateTick) {
 				updates++;
 				updateTimer += updateTick;
-				Update(m_Level, m_RenderModule);
+				Update();
 			}
-			Render(m_RenderModule);
+			Render();
 			frames++;
 			if (timer.elapsed() - t > 1.0f) {
 				t += 1.0f;
@@ -51,11 +50,11 @@ protected:
 		}
 	}
 
-	virtual void Render(Rendering::RenderModule* module) {
+	virtual void Render() {
 
 	}
 
-	virtual void Update(Level::Level* level, Rendering::RenderModule* module) {
+	virtual void Update() {
 
 	}
 

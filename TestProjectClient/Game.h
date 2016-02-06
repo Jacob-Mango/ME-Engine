@@ -10,8 +10,8 @@ public:
 	Game(const char* title);
 	~Game();
 private:
-	virtual void Render(Rendering::RenderModule *module) override;
-	virtual void Update(Level::Level* level, Rendering::RenderModule* module) override;
+	virtual void Render() override;
+	virtual void Update() override;
 	virtual void Tick() override;
 };
 

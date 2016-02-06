@@ -112,10 +112,10 @@ namespace Rendering {
 		m_WorldShader->SetUniformMat4("view", view);
 		m_WorldShader->SetUniformMat4("proj", glm::perspective(90.0f, (float)m_Width / (float)m_Height, 0.1f, 1000.0f));
 
-		for (int i = 0; i < m_Models.size(); i++) {
+		for (unsigned int i = 0; i < m_Models.size(); i++) {
 				std::vector<glm::mat4> matrixes = m_ModelsToRender[m_Models[i]];
-				for (int j = 0; j < matrixes.size(); j++) {
-					// m_WorldShader->SetUniformMat4("model", matrixes[j]);
+				for (unsigned int j = 0; j < matrixes.size(); j++) {
+					m_WorldShader->SetUniformMat4("model", matrixes[j]);
 
 					glBindVertexArray(m_Models[i]->GetVAOID());
 					glEnableVertexAttribArray(0);

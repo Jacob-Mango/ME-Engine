@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="Level\Level.h" />
     <ClInclude Include="Physics\Physics.h" />
@@ -91,6 +92,7 @@
     <ClInclude Include="engine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Level\Level.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />

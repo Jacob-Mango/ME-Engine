@@ -14,7 +14,7 @@ Game::~Game() {
 
 void Game::Render() {
 	if (m_Loading) {
-		m_RenderModule->AddModel("Resources/Models/ramp.obj");
+		m_RenderModule->AddModel("Resources/Models/cube.obj");
 		m_Loading = false;
 	} else {
 		m_RenderModule->PrepareRender();

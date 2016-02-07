@@ -17,6 +17,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{c588a7cf-b37b-4cc2-b3cd-7b012ea71b23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{3997ab27-0dcc-4a80-8375-c75cd65e875a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.h" />
@@ -44,6 +47,9 @@
     <ClInclude Include="FrameBuffer.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\Entity.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">
@@ -63,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Entity.cpp">
+      <Filter>Entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

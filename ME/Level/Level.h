@@ -6,5 +6,6 @@ namespace Level {
 	class Level {
 	public:
 		Level();
+		~Level();
 	};
 }

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <math.h>
 
-Game::Game(const char* title) : MangoesEngine(title) {
+Game::Game(const char* title) : MangoesEngine(title, false) {
 	m_Loading = true; 
 	Loop();
 }

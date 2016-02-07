@@ -14,12 +14,16 @@ protected:
 	int m_UpdatesPerSecond;
 	Rendering::RenderModule* m_RenderModule;
 	Level::Level* m_Level;
+	bool m_IsServer;
 protected:
-	MangoesEngine(const char* title) {
-		m_RenderModule = new Rendering::RenderModule();
-		int e = m_RenderModule->CreateWindow(1280, 720, title);
-		if (e != 0) {
-			exit(e);
+	MangoesEngine(const char* title, bool isServer) {
+		m_IsServer = isServer;
+		if (m_IsServer == false) {
+			m_RenderModule = new Rendering::RenderModule();
+			int e = m_RenderModule->CreateWindow(1280, 720, title);
+			if (e != 0) {
+				exit(e);
+			}
 		}
 		m_Level = new Level::Level();
 	}
@@ -37,8 +41,10 @@ protected:
 				updateTimer += updateTick;
 				Update();
 			}
-			Render();
-			frames++;
+			if (m_IsServer == false) {
+				Render();
+				frames++;
+			}
 			if (timer.elapsed() - t > 1.0f) {
 				t += 1.0f;
 				m_FramesPerSecond = frames;

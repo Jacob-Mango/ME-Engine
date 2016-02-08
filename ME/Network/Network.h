@@ -19,24 +19,23 @@ namespace Network {
 	class Network {
 	private:
 		bool m_IsServer;
-
 		SOCKET m_Socket;
-
 		sockaddr_in m_ServerAddress;
-		std::vector<sockaddr_in> m_ClientAddress;
-
 		WSADATA m_WSA;
+
+		int m_LastError;
 	public:
 		Network(int port);
 		Network(const char* address, int port);
 		~Network();
 
-		int Recieve(char buffer[BUFLEN], sockaddr_in from);
-		int Send(const std::string& address, unsigned short port, const char* buffer);
+		sockaddr_in Recieve(char buffer[BUFLEN]);
+		void Send(const std::string& address, unsigned short port, const char* buffer);
 
 		bool IsServer();
 
-		struct sockaddr_in* Server();
+		int GetLastError() { return m_LastError; }
+
 		std::vector<struct sockaddr_in>* Clients();
 	};
 

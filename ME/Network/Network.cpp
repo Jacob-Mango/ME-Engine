@@ -60,39 +60,41 @@ namespace Network {
 		WSACleanup();
 	}
 
-	int Network::Recieve(char buffer[BUFLEN], sockaddr_in from) {
+	sockaddr_in Network::Recieve(char buffer[BUFLEN]) {
+		sockaddr_in from;
 		int size = sizeof(from);
-		int ret = recvfrom(m_Socket, buffer, strlen(buffer), 0, (SOCKADDR*)&from, &size);
+		int ret = recvfrom(m_Socket, buffer, strlen(buffer), 0, (SOCKADDR*) &from, &size);
 		if (ret < 0) {
-			printf("recvfrom() failed with error code : %d", WSAGetLastError());
-			return -1;
+			int x = WSAGetLastError();
+			m_LastError = -1;
+			if (x == 10040) {
+				buffer[ret] = 0;
+				return from;
+			} else {
+				printf("recvfrom() failed with error code : %d", x);
+				return from;
+			}
+		} else {
+			buffer[ret] = 0;
+			m_LastError = 0;
+			return from;
 		}
-		buffer[ret] = 0;
-		return 0;
 	}
 
-	int Network::Send(const std::string& address, unsigned short port, const char* buffer) {
+	void Network::Send(const std::string& address, unsigned short port, const char* buffer) {
 		sockaddr_in add;
 		add.sin_family = AF_INET;
 		add.sin_addr.s_addr = inet_addr(address.c_str());
 		add.sin_port = htons(port);
 		int ret = sendto(m_Socket, buffer, strlen(buffer), 0, (struct sockaddr*) &add, sizeof(add));
 		if (ret < 0) {
+			m_LastError = -1;
 			printf("sendto() failed with error code : %d", WSAGetLastError());
-			return -1;
 		}
-		return 0;
+		m_LastError = 0;
 	}
 
 	bool Network::IsServer() {
 		return m_IsServer;
-	}
-
-	struct sockaddr_in* Network::Server() {
-		return &m_ServerAddress;
-	}
-
-	std::vector<struct sockaddr_in>* Network::Clients() {
-		return &m_ClientAddress;
 	}
 }

@@ -5,6 +5,7 @@
 #include "Physics\Physics.h"
 #include "Level\Level.h"
 #include "Network\Network.h"
+#include "Network\Packet.h"
 
 #include "Utils\Timer.h"
 
@@ -18,6 +19,7 @@ protected:
 
 	bool m_IsServer;
 	Network::Network* m_Network;
+	Network::Packet* m_Packet;
 protected:
 	MangoesEngine(const char* title, bool isServer) {
 		m_IsServer = isServer;
@@ -27,10 +29,13 @@ protected:
 			if (e != 0) {
 				exit(e);
 			}
+			m_Level = new Level::Level();
 		} else {
+			m_Level = new Level::Level();
 			m_Network = new Network::Network(8888);
+			m_Packet = new Network::Packet(m_Network, m_Level);
 		}
-		m_Level = new Level::Level();
+		
 	}
 
 	void Loop() {

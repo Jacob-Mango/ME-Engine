@@ -21,11 +21,13 @@ void Game::Render() {
 		m_Network->Send("127.0.0.1", 8888, "00Jacob_Mango");
 
 		char buffer[BUFLEN];
-		sockaddr_in from = sockaddr_in();
+		sockaddr_in* from = new sockaddr_in();
 		while (buffer[0] != '0' && buffer[1] != '0'){
-			m_Network->Recieve(buffer, from);
+			m_Network->Recieve(buffer);
+			m_RenderModule->EndRender();
 		}
 		printf(buffer);
+		std::cout << std::endl;
 
 		m_Loading = false;
 	}
@@ -98,7 +100,7 @@ void Game::Update() {
 	glm::vec3 rot = m_RenderModule->GetCamera()->m_Rotation;
 
 	std::ostringstream netSend;
-	netSend << "02" << control.x << "L" << control.y << "L" << control.z << "L" << control.w << "L" << rot.x << "L" << rot.y << "L" << rot.z;
+	netSend << "02" << control.x << "L" << control.y << "L" << control.z << "L" << control.w << "L" << rot.x << "L" << rot.y << "L" << rot.z << "";
 
 	m_Network->Send("127.0.0.1", 8888, netSend.str().c_str());
 }

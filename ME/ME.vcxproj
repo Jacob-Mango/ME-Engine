@@ -81,8 +81,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Entity\Entity.h" />
+    <ClInclude Include="Entity\Player.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="Level\Level.h" />
+    <ClInclude Include="Network\Network.h" />
+    <ClInclude Include="Network\Packet.h" />
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Model.h" />
@@ -93,8 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Entity.cpp" />
+    <ClCompile Include="Entity\Player.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Level\Level.cpp" />
+    <ClCompile Include="Network\Network.cpp" />
+    <ClCompile Include="Network\Packet.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />

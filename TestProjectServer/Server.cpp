@@ -10,12 +10,12 @@ Server::~Server() {
 
 }
 
-void Server::Render() {
-}
-
 void Server::Update() {
+	m_Level->Update();
 }
 
 void Server::Tick() {
-	std::cout << m_UpdatesPerSecond << std::endl;
+	m_Level->Tick();
+
+	std::cout << std::endl << m_UpdatesPerSecond << std::endl;
 }

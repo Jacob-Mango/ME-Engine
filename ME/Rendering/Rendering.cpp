@@ -2,7 +2,7 @@
 
 namespace Rendering {
 	
-	int RenderModule::CreateWindow(int width, int height, const char* title) {
+	int RenderModule::MakeWindow(int width, int height, const char* title) {
 		m_Title = title;
 		m_Width = width;
 		m_Height = height;

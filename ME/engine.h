@@ -4,6 +4,7 @@
 
 #include "Physics\Physics.h"
 #include "Level\Level.h"
+#include "Network\Network.h"
 
 #include "Utils\Timer.h"
 
@@ -14,16 +15,20 @@ protected:
 	int m_UpdatesPerSecond;
 	Rendering::RenderModule* m_RenderModule;
 	Level::Level* m_Level;
+
 	bool m_IsServer;
+	Network::Network* m_Network;
 protected:
 	MangoesEngine(const char* title, bool isServer) {
 		m_IsServer = isServer;
 		if (m_IsServer == false) {
 			m_RenderModule = new Rendering::RenderModule();
-			int e = m_RenderModule->CreateWindow(1280, 720, title);
+			int e = m_RenderModule->MakeWindow(1280, 720, title);
 			if (e != 0) {
 				exit(e);
 			}
+		} else {
+			m_Network = new Network::Network(8888);
 		}
 		m_Level = new Level::Level();
 	}
@@ -57,14 +62,11 @@ protected:
 	}
 
 	virtual void Render() {
-
 	}
 
 	virtual void Update() {
-
 	}
 
 	virtual void Tick() {
-
 	}
 };

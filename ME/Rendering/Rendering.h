@@ -60,7 +60,7 @@ namespace Rendering {
 		Shader* m_PPShader;
 		Camera* m_Camera;
 	public:
-		int CreateWindow(int width, int height, const char* title);
+		int MakeWindow(int width, int height, const char* title);
 
 		int AddModel(const char* source);
 		int AddModelToRender(int id, glm::mat4 trans);

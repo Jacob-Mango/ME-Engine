@@ -62,6 +62,9 @@
     <ClInclude Include="Network\Packet.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\StringUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">

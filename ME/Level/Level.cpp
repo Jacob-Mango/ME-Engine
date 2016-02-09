@@ -21,28 +21,42 @@ namespace Level {
 	}
 
 	int Level::GetPlayerLevelForID(int entityID) {
-		for (int i = 0; i < m_Players.size(); i++) {
+		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			if (m_Players[i].GetEntityID() == entityID) return i;
 		}
 		return -1;
 	}
 
 	Player* Level::GetPlayerForID(int entityID) {
-		for (int i = 0; i < m_Players.size(); i++) {
+		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			if (m_Players[i].GetEntityID() == entityID) return &m_Players[i];
 		}
 		return nullptr;
 	}
 
+	std::vector<Player> Level::GetPlayers() {
+		return m_Players;
+	}
+
+	int Level::GetFreePlayerCode() {
+		int x = 0;
+		for (unsigned int i = 0; i < m_Players.size(); i++) {
+			x = m_Players[i].GetEntityID() + 1;
+		}
+		return x;
+	}
+
 	void Level::Update() {
-		for (int i = 0; i < m_Players.size(); i++) {
+		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			m_Players[i].Update();
 		}
 	}
 
 	void Level::Tick(){
-		for (int i = 0; i < m_Players.size(); i++) {
+		std::cout << "Players Online: " << std::endl;
+		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			m_Players[i].Tick();
+			std::cout << "	" << m_Players[i].GetEntityID() << std::endl;
 		}
 	}
 }

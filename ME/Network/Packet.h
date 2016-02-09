@@ -5,6 +5,8 @@
 #include <string>
 #include <sstream>
 
+#include "..\Utils\StringUtils.h"
+
 #include "..\Level\Level.h"
 #include "..\Entity\Player.h"
 #include "Network.h"
@@ -15,9 +17,12 @@ namespace Network {
 	private:
 		Network* m_Network;
 		Level::Level* m_Level;
+		std::thread* m_Thread;
 	public:
 		Packet(Network* network, Level::Level* level);
 		~Packet();
+
+		void SendToAll(const char* buffer);
 	private:
 		friend void HandleIncoming(Packet* p);
 	};

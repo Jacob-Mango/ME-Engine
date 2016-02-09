@@ -15,6 +15,8 @@ Entity::~Entity() {
 }
 
 int Entity::Update() {
+	m_Position += m_Velocity;
+	m_Velocity *= 0.5f;
 	return 0;
 }
 

@@ -32,7 +32,7 @@ protected:
 			m_Level = new Level::Level();
 		} else {
 			m_Level = new Level::Level();
-			m_Network = new Network::Network(8888);
+			m_Network = new Network::Network(80);
 			m_Packet = new Network::Packet(m_Network, m_Level);
 		}
 		
@@ -66,12 +66,7 @@ protected:
 		}
 	}
 
-	virtual void Render() {
-	}
-
-	virtual void Update() {
-	}
-
-	virtual void Tick() {
-	}
+	virtual void Render() {}
+	virtual void Update() {}
+	virtual void Tick() {}
 };

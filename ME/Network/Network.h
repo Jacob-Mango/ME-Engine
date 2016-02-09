@@ -26,11 +26,12 @@ namespace Network {
 		int m_LastError;
 	public:
 		Network(int port);
-		Network(const char* address, int port);
+		Network();
 		~Network();
 
 		sockaddr_in Recieve(char buffer[BUFLEN]);
 		void Send(const std::string& address, unsigned short port, const char* buffer);
+		void Send(sockaddr_in add, const char* buffer);
 
 		bool IsServer();
 

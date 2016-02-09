@@ -6,7 +6,7 @@
 #include "Server.h"
 
 int main(void) {
-	Server* g = new Server("TestProjectServer");
-	delete g;
+	Server* s = new Server("TestProjectServer");
+	delete s;
 	return 0;
 }

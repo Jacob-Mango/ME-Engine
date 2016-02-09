@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 #include <string>
 
 #include "../Physics/Physics.h"
@@ -18,6 +19,9 @@ namespace Level {
 		void RemovePlayer(int entityID);
 		int GetPlayerLevelForID(int entityID);
 		Player* GetPlayerForID(int entityID);
+		std::vector<Player> GetPlayers();
+
+		int GetFreePlayerCode();
 
 		void Update();
 		void Tick();

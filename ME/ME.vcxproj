@@ -91,6 +91,7 @@
     <ClInclude Include="Rendering\Model.h" />
     <ClInclude Include="Rendering\Rendering.h" />
     <ClInclude Include="Utils\File.h" />
+    <ClInclude Include="Utils\StringUtils.h" />
     <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="engine.h" />
   </ItemGroup>

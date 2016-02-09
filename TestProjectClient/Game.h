@@ -11,8 +11,9 @@
 
 class Game : public MangoesEngine {
 private:
-	bool m_Loading;
+	bool m_Loading, m_WaitingForLogin;
 	glm::vec2 m_PreviousMousePosition;
+	int m_MainPlayerID;
 public:
 	Game(const char* title);
 	~Game();

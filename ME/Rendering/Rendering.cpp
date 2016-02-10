@@ -110,7 +110,7 @@ namespace Rendering {
 		view = glm::rotate(view, ToRadians(m_Camera->m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		view = glm::translate(view, -m_Camera->m_Position);
 		m_WorldShader->SetUniformMat4("view", view);
-		m_WorldShader->SetUniformMat4("proj", glm::perspective(90.0f, (float)m_Width / (float)m_Height, 0.1f, 1000.0f));
+		m_WorldShader->SetUniformMat4("proj", glm::perspective(90.0f, (float) ((double)m_Width  / (double)m_Height), 0.1f, 1000.0f));
 
 		for (unsigned int i = 0; i < m_Models.size(); i++) {
 				std::vector<glm::mat4> matrixes = m_ModelsToRender[m_Models[i]];
@@ -188,6 +188,19 @@ namespace Rendering {
 	int RenderModule::AddModelToRender(int id, glm::mat4 trans) {
 		m_ModelsToRender[m_Models[id]].push_back(trans);
 		return 0;
+	}
+
+	int RenderModule::AddModelToRender(int id, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) {
+		glm::mat4 result = glm::mat4(1.0);
+
+		result = glm::translate(result, position);
+		result = glm::rotate(result, ToRadians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		result = glm::rotate(result, ToRadians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		result = glm::rotate(result, ToRadians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		result = glm::scale(result, scale);
+
+
+		return AddModelToRender(id, result);
 	}
 
 	glm::vec2 RenderModule::GetWindowSize() {

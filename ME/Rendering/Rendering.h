@@ -64,6 +64,7 @@ namespace Rendering {
 
 		int AddModel(const char* source);
 		int AddModelToRender(int id, glm::mat4 trans);
+		int AddModelToRender(int id, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
 		int PrepareRender();
 		int RenderWorld();

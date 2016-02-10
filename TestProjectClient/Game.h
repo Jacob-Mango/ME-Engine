@@ -9,6 +9,8 @@
 #include <..\ME\Rendering\Rendering.h>
 #include <..\ME\engine.h>
 
+#include <..\ME\Utils\ResourceLoader.h>
+
 class Game : public MangoesEngine {
 private:
 	bool m_Loading, m_WaitingForLogin;

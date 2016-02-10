@@ -1,7 +1,5 @@
 #include "Game.h"
 
-
-
 Game::Game(const char* title) : MangoesEngine(title, false) {
 	m_Loading = true; 
 	m_WaitingForLogin = false;
@@ -15,7 +13,7 @@ Game::~Game() {
 void Game::Render() {
 	m_RenderModule->PrepareRender();
 	if (m_Loading) {
-		const char* username = "Jacob_Mango";
+		const char* username = "dadafafgg";
 		if (m_WaitingForLogin) {
 			char buffer[BUFLEN];
 			sockaddr_in from = m_Network->Recieve(buffer);
@@ -30,16 +28,22 @@ void Game::Render() {
 				m_Loading = false;
 			}
 
-		} else {
+		} else if (!m_WaitingForLogin) {
 			int i = 0;
 			while (i < 4000 * 100) {
 				i++;
 			}
+			ResourceLoader rl;
 
-			m_RenderModule->AddModel("Resources/Models/ramp.obj");
+			while (rl.LoadModels(m_RenderModule) == false) {
+				m_RenderModule->PrepareRender();
+				m_RenderModule->RenderWorld();
+				m_RenderModule->RenderPostProccessEffects();
+				m_RenderModule->EndRender();
+			}
 
 			std::cout << "Ok, connecting!";
-			m_Network = new Network::Network();
+			m_Network = new Network::Network(false);
 
 			std::ostringstream c;
 			c << "00";
@@ -48,11 +52,12 @@ void Game::Render() {
 
 			std::cout << c.str();
 
-			m_Network->Send("127.0.0.1", 80, c.str().c_str()); 
+			m_Network->Send("127.0.0.1", SERVERPORT, c.str().c_str());
 			m_WaitingForLogin = true;
 		}
 	} else {
 		m_RenderModule->AddModelToRender(0, glm::mat4(1.0f));
+		m_RenderModule->AddModelToRender(1, glm::mat4(1.0f));
 	}
 
 	m_RenderModule->RenderWorld();

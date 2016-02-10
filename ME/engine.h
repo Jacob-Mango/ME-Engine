@@ -32,7 +32,7 @@ protected:
 			m_Level = new Level::Level();
 		} else {
 			m_Level = new Level::Level();
-			m_Network = new Network::Network(80);
+			m_Network = new Network::Network(true);
 			m_Packet = new Network::Packet(m_Network, m_Level);
 		}
 		

@@ -11,8 +11,11 @@
 
 #pragma comment(lib,"ws2_32.lib")
 
+#define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR, 12)
+
 // #define BUFLEN 16384
 #define BUFLEN 1024
+#define SERVERPORT 9231
 
 namespace Network {
 
@@ -25,8 +28,7 @@ namespace Network {
 
 		int m_LastError;
 	public:
-		Network(int port);
-		Network();
+		Network(bool isServer);
 		~Network();
 
 		sockaddr_in Recieve(char buffer[BUFLEN]);

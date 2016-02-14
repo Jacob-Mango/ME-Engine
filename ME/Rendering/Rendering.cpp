@@ -117,7 +117,7 @@ namespace Rendering {
 		return 0;
 	}
 
-	int RenderModule::RenderWorld(std::vector<Terrain::Terrain> m_Terrains) {
+	int RenderModule::RenderWorld(std::vector<Terrain::Terrain*> m_Terrains) {
 		m_WorldShader->Start();
 
 		glm::mat4 view = glm::mat4(1.0f);
@@ -142,42 +142,19 @@ namespace Rendering {
 		}
 
 		
-		int mtf = T_VERTEXCOUNT / T_FRAGMENTS;
+		int mtf = T_VERTEXCOUNT;
 		for (unsigned int i = 0; i < m_Terrains.size(); i++) {
-			Terrain::Terrain t = m_Terrains[i];
-			for (int j = 0; j < T_FRAGMENTS; j++) {
-				glm::vec3 tPos = t.GetPosition() + glm::vec3(mtf * j / (mtf), 0, mtf * j % (mtf));
-				float d = glm::distance(tPos, m_Camera->m_Position);
-				m_WorldShader->SetUniformMat4("model", glm::translate(glm::mat4(1.0), tPos));
-				if (d > 50) {
-					glBindVertexArray(t.lod1[j]);
-					glEnableVertexAttribArray(0);
-					glEnableVertexAttribArray(1);
-					glEnableVertexAttribArray(2);
-
-					glDrawArrays(GL_TRIANGLES, 0, t.sizes1[j]);
-				} else if (d > 100) {
-					glBindVertexArray(t.lod2[j]);
-					glEnableVertexAttribArray(0);
-					glEnableVertexAttribArray(1);
-					glEnableVertexAttribArray(2);
-
-					glDrawArrays(GL_TRIANGLES, 0, t.sizes2[j]);
-				} else {
-					glBindVertexArray(t.lod0[j]);
-					glEnableVertexAttribArray(0);
-					glEnableVertexAttribArray(1);
-					glEnableVertexAttribArray(2);
-
-					glDrawArrays(GL_TRIANGLES, 0, t.sizes0[j]);
-				}
+			Terrain::Terrain* t = m_Terrains[i];
+			if (t != nullptr) {
+				float d = glm::distance(t->GetPosition(), m_Camera->m_Position);
+				m_WorldShader->SetUniformMat4("model", glm::translate(glm::mat4(1.0), t->GetPosition()));
+				glBindVertexArray(t->m_VAOID);
+				glEnableVertexAttribArray(0);
+				glEnableVertexAttribArray(1);
+				glEnableVertexAttribArray(2);
+				glDrawArrays(GL_TRIANGLES, 0, t->m_VAOID);
 			}
 		}
-		
-
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		glDisableVertexAttribArray(2);
 		glBindVertexArray(0);
 
 		m_WorldShader->Stop();

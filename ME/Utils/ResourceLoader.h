@@ -66,7 +66,7 @@ bool LoadModels(Rendering::RenderModule* module) {
 }
 
 bool LoadLevel(Level::Level* level) {
-	level->AddEntity(Entity(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0), 1, 0));
+	level->AddEntity(new Entity(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0), 1, 0));
 
 	return true;
 }

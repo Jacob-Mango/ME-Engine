@@ -73,7 +73,7 @@ namespace Rendering {
 		int AddModelToRender(int id, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
 		int PrepareRender();
-		int RenderWorld(std::vector<Terrain::Terrain> m_Terrains);
+		int RenderWorld(std::vector<Terrain::Terrain*> m_Terrains);
 		int RenderPostProccessEffects();
 		int EndRender();
 

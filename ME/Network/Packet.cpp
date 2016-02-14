@@ -42,26 +42,26 @@ namespace Network {
 						std::ostringstream n;
 						n << "00";
 						std::ostringstream c;
-						c << p->m_Level->GetPlayers()[i].GetEntityID() << "";
+						c << p->m_Level->GetPlayers()[i]->GetEntityID() << "";
 						int x = 6;
 						while (x - c.str().length() > 0) {
 							n << "0";
 							x--;
 						}
-						n << p->m_Level->GetPlayers()[i].GetEntityID() << "";
-						n << p->m_Level->GetPlayers()[i].GetUsername() << "";
+						n << p->m_Level->GetPlayers()[i]->GetEntityID() << "";
+						n << p->m_Level->GetPlayers()[i]->GetUsername() << "";
 						p->m_Network->Send(from, n.str().c_str());
 
 					}
 					netSend << user << "";
 					p->SendToAll(netSend.str().c_str());
-					p->m_Level->AddPlayer(Player(from, user, code));
+					p->m_Level->AddPlayer(new Player(from, user, code));
 				} else {
 					code = atoi(recv.substr(2, 6).c_str());
 					std::cout << "Maybe? " << code << " ";
 					if (p->m_Level->GetPlayerLevelForID(code) == -1) {
 						std::cout << "Yes?";
-						p->m_Level->AddPlayer(Player(user, code));
+						p->m_Level->AddPlayer(new Player(user, code));
 					}
 					else {
 						std::cout << "No?";
@@ -130,7 +130,7 @@ namespace Network {
 
 	void Packet::SendToAll(const char* buffer) {
 		for (unsigned int i = 0; i < m_Level->GetPlayers().size(); i++) {
-			m_Network->Send(m_Level->GetPlayers()[i].GetAddress(), buffer);
+			m_Network->Send(m_Level->GetPlayers()[i]->GetAddress(), buffer);
 		}
 	}
 
@@ -139,10 +139,10 @@ namespace Network {
 			for (unsigned int i = 0; i < m_Level->GetPlayers().size(); i++) {
 				std::ostringstream send;
 				send << "02";
-				glm::vec3 pos = m_Level->GetPlayers()[i].GetPosition();
-				glm::vec3 rot = m_Level->GetPlayers()[i].GetRotation();
+				glm::vec3 pos = m_Level->GetPlayers()[i]->GetPosition();
+				glm::vec3 rot = m_Level->GetPlayers()[i]->GetRotation();
 
-				int code = m_Level->GetPlayers()[i].GetEntityID();
+				int code = m_Level->GetPlayers()[i]->GetEntityID();
 				std::ostringstream check;
 				check << code << "";
 				int x = 6;

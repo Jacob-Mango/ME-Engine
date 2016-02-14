@@ -8,26 +8,20 @@
 #include <glew\glew.h>
 #include <GLFW\glfw3.h>
 
-#define T_SIZE 64
-#define T_VERTEXCOUNT 64 * 4
-#define T_FRAGMENTS 16
+#define T_SIZE 16
+#define T_VERTEXCOUNT T_SIZE * 4
 
 namespace Terrain {
 
 	class Terrain {
 	public:
-		GLuint lod0[T_FRAGMENTS];
-		GLuint lod1[T_FRAGMENTS];
-		GLuint lod2[T_FRAGMENTS];
-
-		GLuint sizes0[T_FRAGMENTS];
-		GLuint sizes1[T_FRAGMENTS];
-		GLuint sizes2[T_FRAGMENTS];
+		GLuint m_VAOID;
+		unsigned int m_Size;
 	private:
 		glm::vec3 m_Position;
 		glm::vec2 m_RelativePosition;
 
-		float m_HeightMap[T_FRAGMENTS][(int)(T_VERTEXCOUNT / T_FRAGMENTS) * (int)(T_VERTEXCOUNT / T_FRAGMENTS)];
+		float m_HeightMap[(int)(T_VERTEXCOUNT * T_VERTEXCOUNT)];
 	public:
 		Terrain(glm::vec2 relPos, float heightMap[T_VERTEXCOUNT * T_VERTEXCOUNT]);
 		~Terrain();

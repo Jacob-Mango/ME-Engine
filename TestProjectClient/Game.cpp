@@ -22,7 +22,7 @@ void Game::Render() {
 
 			if (!recv.compare(0, 2, "00")) {
 				m_MainPlayerID = atoi(std::string(buffer).substr(2, 6).c_str());
-				m_Level->AddPlayer(Player(username, m_MainPlayerID));
+				m_Level->AddPlayer(new Player(username, m_MainPlayerID));
 				m_Packet = new Network::Packet(m_Network, m_Level);
 				m_WaitingForLogin = false;
 				m_Loading = false;
@@ -80,6 +80,12 @@ void Game::Update() {
 		glm::vec3 vel;
 		glm::vec4 control;
 		if (!m_RenderModule->IsCursorFocused()) {
+			if (m_RenderModule->IsKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
+				speed = 5.0f;
+				control.w = 1;
+			}
+
+
 			if (m_RenderModule->IsKeyPressed(GLFW_KEY_W)) {
 				vel.x += speed * sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
 				vel.z -= speed * cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));

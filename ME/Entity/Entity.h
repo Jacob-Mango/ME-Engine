@@ -27,6 +27,10 @@ public:
 		return m_EntityID;
 	}
 
+	GLuint GetModelID() {
+		return m_ModelID;
+	}
+
 	glm::vec3 GetPosition() {
 		return m_Position;
 	}
@@ -37,6 +41,10 @@ public:
 
 	glm::vec3 GetRotation() {
 		return m_Rotation;
+	}
+
+	void SetEntityID(int id) {
+		m_EntityID = id;
 	}
 
 	void SetPosition(glm::vec3 r) {

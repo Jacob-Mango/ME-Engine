@@ -3,8 +3,9 @@
 #define MAX_KEYS		1024
 #define MAX_BUTTONS		32
 
-#define M_PI 3.14159265358979323846
+#define M_PI 3.14159265359
 
+#include <math.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,6 +19,8 @@
 
 #include "Shader.h"
 #include "Model.h"
+
+#include "..\Terrain\Terrain.h"
 #include "..\Utils\File.h"
 
 static float ToRadians(float r) {
@@ -49,6 +52,9 @@ namespace Rendering {
 		bool m_MouseButtons[MAX_BUTTONS];
 		bool m_MouseState[MAX_BUTTONS];
 		bool m_MouseClicked[MAX_BUTTONS];
+
+		bool m_CloseWindow;
+
 		double mx, my; 
 		double mdx, mdy;
 		bool m_CursorFocused;
@@ -67,7 +73,7 @@ namespace Rendering {
 		int AddModelToRender(int id, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 
 		int PrepareRender();
-		int RenderWorld();
+		int RenderWorld(std::vector<Terrain::Terrain> m_Terrains);
 		int RenderPostProccessEffects();
 		int EndRender();
 
@@ -83,10 +89,20 @@ namespace Rendering {
 		glm::vec2 GetMouseDelta() const;
 		bool IsCursorFocused() const;
 		void SetCursor(bool r);
+
+		void Close() {
+			m_CloseWindow = true;
+		}
+
+		bool ShouldClose() {
+			return m_CloseWindow; 
+		}
 	private:
 		friend void window_resize(GLFWwindow* window, int width, int height);
 		friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		friend void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 		friend void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
+		friend void window_close_callback(GLFWwindow* window);
+		friend void window_loss_focus_callback(GLFWwindow* window, int focused);
 	};
 }

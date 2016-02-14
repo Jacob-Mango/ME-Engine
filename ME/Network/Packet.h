@@ -23,6 +23,8 @@ namespace Network {
 		~Packet();
 
 		void SendToAll(const char* buffer);
+
+		void SendOnUpdate();
 	private:
 		friend void HandleIncoming(Packet* p);
 	};

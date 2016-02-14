@@ -10,6 +10,7 @@ Server::~Server() {
 }
 
 void Server::Update() {
+	m_Packet->SendOnUpdate();
 	m_Level->Update();
 }
 

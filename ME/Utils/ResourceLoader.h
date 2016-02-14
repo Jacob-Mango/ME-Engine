@@ -14,6 +14,9 @@ private:
 int m_LoadModelNumber = 0;
 int m_MaxModels = -1;
 
+int m_LoadLevelNumber = 0;
+int m_MaxLevels = -1;
+
 int CheckHowManyModelsToLoad() {
 	const TCHAR* parent_path = (const TCHAR*) "Resources\\Data\\";
 	size_t len = _tcslen(parent_path);
@@ -60,5 +63,11 @@ bool LoadModels(Rendering::RenderModule* module) {
 
 	if (m_LoadModelNumber >= m_MaxModels) return true;
 	else return false;
+}
+
+bool LoadLevel(Level::Level* level) {
+	level->AddEntity(Entity(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0), 1, 0));
+
+	return true;
 }
 };

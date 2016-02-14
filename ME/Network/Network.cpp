@@ -14,7 +14,6 @@ namespace Network {
 
 			DWORD dwBytesReturned = 0;
 			BOOL bNewBehavior = FALSE;
-			DWORD status;
 
 			if (WSAIoctl(m_Socket, SIO_UDP_CONNRESET, &bNewBehavior, sizeof(bNewBehavior), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
 				DWORD dwErr = WSAGetLastError();
@@ -48,7 +47,6 @@ namespace Network {
 
 			DWORD dwBytesReturned = 0;
 			BOOL bNewBehavior = FALSE;
-			DWORD status;
 
 			if (WSAIoctl(m_Socket, SIO_UDP_CONNRESET, &bNewBehavior, sizeof(bNewBehavior), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
 				DWORD dwErr = WSAGetLastError();

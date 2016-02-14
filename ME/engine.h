@@ -46,6 +46,10 @@ protected:
 		unsigned int frames = 0;
 		unsigned int updates = 0;
 		while (m_CanLoop) {
+			if (m_IsServer == false) {
+				m_CanLoop = m_RenderModule->ShouldClose() == false;
+			}
+
 			if (timer.elapsed() - updateTimer > updateTick) {
 				updates++;
 				updateTimer += updateTick;

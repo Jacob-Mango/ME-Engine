@@ -4,7 +4,7 @@
 #include <iostream>
 #include <math.h>
 
-#include <glm/gtx/string_cast.hpp>
+#include <glm\gtx\string_cast.hpp>
 
 #include <..\ME\Rendering\Rendering.h>
 #include <..\ME\engine.h>

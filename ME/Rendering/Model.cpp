@@ -85,7 +85,7 @@ namespace Rendering {
 		GLuint vboID;
 		glGenBuffers(1, &vboID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size() * sizeof(data[0]), data.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size(), data.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 

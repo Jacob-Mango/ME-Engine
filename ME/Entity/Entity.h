@@ -12,18 +12,23 @@ private:
 	glm::vec3 m_Position;
 	glm::vec3 m_Velocity;
 	glm::vec3 m_Rotation;
+	glm::vec4 m_Direction;
+
+	float m_Speed;
 
 	GLuint m_ModelID;
-	int m_EntityID;
+	unsigned int m_EntityID;
+
+	bool m_CanMove;
 public: 
-	Entity(GLuint modelID, int entityID);
-	Entity(glm::vec3 position, glm::vec3 rotation, GLuint modelID, int entityID);
+	Entity(GLuint modelID, unsigned int entityID, bool canMove, float speed);
+	Entity(glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, bool canMove, float speed);
 	~Entity();
 
 	int Update();
 	int Tick();
 
-	int GetEntityID() {
+	unsigned int GetEntityID() {
 		return m_EntityID;
 	}
 
@@ -43,7 +48,11 @@ public:
 		return m_Rotation;
 	}
 
-	void SetEntityID(int id) {
+	float GetSpeed() {
+		return m_Speed;
+	}
+
+	void SetEntityID(unsigned int id) {
 		m_EntityID = id;
 	}
 
@@ -57,5 +66,9 @@ public:
 
 	void SetRotation(glm::vec3 r) {
 		m_Rotation = r;
+	}
+
+	void SetDirection(glm::vec4 r) {
+		m_Direction = r;
 	}
 };

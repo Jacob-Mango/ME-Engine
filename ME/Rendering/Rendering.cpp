@@ -128,8 +128,10 @@ namespace Rendering {
 		m_WorldShader->SetUniformMat4("proj", glm::perspective(ToRadians(90.0f), ((float)(m_Width * 1.0f) / (float)(m_Height * 1.0f)), 0.1f, 1000.0f));
 
 		for (unsigned int i = 0; i < m_Models.size(); i++) {
+			if (m_Models[i]->GetVAOID() == 3452816845) continue;
+
 			std::vector<glm::mat4> matrixes = m_ModelsToRender[m_Models[i]];
-			for (unsigned int j = 0; j < matrixes.size(); j++) {
+			if (matrixes.size() != 0) for (unsigned int j = 0; j < matrixes.size(); j++) {
 				m_WorldShader->SetUniformMat4("model", matrixes[j]);
 
 				glBindVertexArray(m_Models[i]->GetVAOID());
@@ -137,12 +139,12 @@ namespace Rendering {
 				glEnableVertexAttribArray(1);
 				glEnableVertexAttribArray(2);
 
+				// glDrawElements(GL_TRIANGLES, m_Models[i]->GetSize(), GL_UNSIGNED_INT, 0);
+
 				glDrawArrays(GL_TRIANGLES, 0, m_Models[i]->GetSize());
 			}
 		}
 
-		
-		int mtf = T_VERTEXCOUNT;
 		for (unsigned int i = 0; i < m_Terrains.size(); i++) {
 			Terrain::Terrain* t = m_Terrains[i];
 			if (t != nullptr) {
@@ -152,7 +154,8 @@ namespace Rendering {
 				glEnableVertexAttribArray(0);
 				glEnableVertexAttribArray(1);
 				glEnableVertexAttribArray(2);
-				glDrawArrays(GL_TRIANGLES, 0, t->m_VAOID);
+
+				glDrawElements(GL_TRIANGLES, t->m_Size, GL_UNSIGNED_INT, 0);
 			}
 		}
 		glBindVertexArray(0);

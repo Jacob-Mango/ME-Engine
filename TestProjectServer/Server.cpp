@@ -1,7 +1,16 @@
 #include "Server.h"
 
+#include <..\ME\Utils\ResourceLoader.h>
+
 Server::Server(const char* title) : MangoesEngine(title, true) {
 	m_Loading = true;
+
+	ResourceLoader rl;
+
+	while (rl.LoadLevel(m_Level) == false) {
+		
+	}
+
 	Loop();
 }
 
@@ -11,7 +20,7 @@ Server::~Server() {
 
 void Server::Update() {
 	m_Packet->SendOnUpdate();
-	m_Level->Update();
+	m_Level->Update(m_IsServer);
 }
 
 void Server::Tick() {

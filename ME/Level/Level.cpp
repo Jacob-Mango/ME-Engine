@@ -12,20 +12,20 @@ namespace Level {
 		m_Players.push_back(p);
 	}
 
-	void Level::RemovePlayer(int entityID) {
+	void Level::RemovePlayer(unsigned int entityID) {
 		int p = GetPlayerLevelForID(entityID);
 		if (p < 0) return;
 		m_Players.erase(m_Players.begin() + p);
 	}
 
-	int Level::GetPlayerLevelForID(int entityID) {
+	unsigned int Level::GetPlayerLevelForID(unsigned int entityID) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			if (m_Players[i]->GetEntityID() == entityID) return i;
 		}
 		return -1;
 	}
 
-	Player* Level::GetPlayerForID(int entityID) {
+	Player* Level::GetPlayerForID(unsigned int entityID) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			if (m_Players[i]->GetEntityID() == entityID) return m_Players[i];
 		}
@@ -37,24 +37,23 @@ namespace Level {
 	}
 
 	void Level::AddEntity(Entity* e) {
-		e->SetEntityID(GetFreeEntityCode());
 		m_Entities.push_back(e);
 	}
 
-	void Level::RemoveEntity(int entityID) {
+	void Level::RemoveEntity(unsigned int entityID) {
 		int p = GetEntityLevelForID(entityID);
 		if (p < 0) return;
 		m_Entities.erase(m_Entities.begin() + p);
 	}
 
-	int Level::GetEntityLevelForID(int entityID) {
+	unsigned int Level::GetEntityLevelForID(unsigned int entityID) {
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			if (m_Entities[i]->GetEntityID() == entityID) return i;
 		}
 		return -1;
 	}
 
-	Entity* Level::GetEntityForID(int entityID) {
+	Entity* Level::GetEntityForID(unsigned int entityID) {
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			if (m_Entities[i]->GetEntityID() == entityID) return m_Entities[i];
 		}
@@ -65,15 +64,18 @@ namespace Level {
 		return m_Entities;
 	}
 
-	int Level::GetFreeEntityCode() {
-		int x = 0;
+	unsigned int Level::GetFreeEntityCode() {
+		unsigned int x = 0;
+		unsigned int lowest = 0;
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
-			for (unsigned int j = 0; j =m_Players.size(); j++) {
-				int y = 0;
-				if (m_Players[j]->GetEntityID() < m_Entities[i]->GetEntityID()) y = m_Entities[i]->GetEntityID() + 1;
-				else y = m_Players[j]->GetEntityID() + 1;
-				if (y > x) x = y;
-			}
+			x = m_Entities[i]->GetEntityID() + 1;
+			if (x < lowest) lowest = x;
+			if (x == lowest) lowest += 1;
+		}
+		for (unsigned int i = 0; i < m_Players.size(); i++) {
+			x = m_Players[i]->GetEntityID() + 1;
+			if (x < lowest) lowest = x;
+			if (x == lowest) lowest += 1;
 		}
 		return x;
 	}
@@ -90,19 +92,19 @@ namespace Level {
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			module->AddModelToRender(m_Entities[i]->GetModelID(), m_Entities[i]->GetPosition(), m_Entities[i]->GetRotation(), glm::vec3(1.0f));
 		}
-
-		if (m_Terrains.size() == 0) {
-			float h[T_VERTEXCOUNT * T_VERTEXCOUNT] = { 0 };
-			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(0, 0), h));
-		}
 	}
 
-	void Level::Update() {
+	void Level::Update(bool isServer) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			m_Players[i]->Update();
 		}
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			m_Entities[i]->Update();
+		}
+
+		if (m_Terrains.size() == 0) {
+			float h[T_VERTEXCOUNT * T_VERTEXCOUNT] = { 0 };
+			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(0, 0), h, isServer));
 		}
 	}
 
@@ -111,6 +113,11 @@ namespace Level {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			m_Players[i]->Tick();
 			std::cout << "	" << m_Players[i]->GetEntityID() << std::endl;
+		}
+		std::cout << "Entities: " << std::endl;
+		for (unsigned int i = 0; i < m_Entities.size(); i++) {
+			m_Entities[i]->Tick();
+			std::cout << "	" << m_Entities[i]->GetEntityID() << std::endl;
 		}
 	}
 }

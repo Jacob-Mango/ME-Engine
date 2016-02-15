@@ -23,23 +23,23 @@ namespace Level {
 		~Level();
 
 		void AddPlayer(Player* p);
-		void RemovePlayer(int entityID);
-		int GetPlayerLevelForID(int entityID);
-		Player* GetPlayerForID(int entityID);
+		void RemovePlayer(unsigned int entityID);
+		unsigned int GetPlayerLevelForID(unsigned int entityID);
+		Player* GetPlayerForID(unsigned int entityID);
 		std::vector<Player*> GetPlayers();
 
 		void AddEntity(Entity* e);
-		void RemoveEntity(int entityID);
-		int GetEntityLevelForID(int entityID);
-		Entity* GetEntityForID(int entityID);
+		void RemoveEntity(unsigned int entityID);
+		unsigned int GetEntityLevelForID(unsigned int entityID);
+		Entity* GetEntityForID(unsigned int entityID);
 		std::vector<Entity*> GetEntities();
 
-		int GetFreeEntityCode();
+		unsigned int GetFreeEntityCode();
 
 		std::vector<Terrain::Terrain*> GetTerrainsToRender();
 
 		void Render(Rendering::RenderModule* module, int playerID);
-		void Update();
+		void Update(bool isServer);
 		void Tick();
 	};
 }

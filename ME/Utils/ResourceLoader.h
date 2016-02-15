@@ -4,7 +4,6 @@
 #include <sstream>
 
 #include <tchar.h>
-#include <windows.h>
 
 #include "..\Rendering\Rendering.h"
 #include "..\Rendering\Model.h"
@@ -55,9 +54,9 @@ bool LoadModels(Rendering::RenderModule* module) {
 	o << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".obj";
 	module->AddModel(o.str().c_str());
 
-	std::ostringstream d;
-	d << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".dae";
-	module->AddModel(d.str().c_str());
+	// std::ostringstream d;
+	// d << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".dae";
+	// module->AddModel(d.str().c_str());
 
 	m_LoadModelNumber++;
 
@@ -66,7 +65,7 @@ bool LoadModels(Rendering::RenderModule* module) {
 }
 
 bool LoadLevel(Level::Level* level) {
-	level->AddEntity(new Entity(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0), 1, 0));
+	level->AddEntity(new Entity(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0), 1, 0, false, 0.0f));
 
 	return true;
 }

@@ -81,41 +81,43 @@ namespace Network {
 				recv = recv.substr(6);
 				Player* c = p->m_Level->GetPlayerForID(code);
 
-				float speed = 1.0f / 30.0f;
-
 				std::vector<std::string> a = StringUtils::split(recv, 'L');
 
 				glm::vec3 rotation;
 
 				if (isServer) {
-					glm::vec3 vel;
+					glm::vec4 direction;
 					glm::vec4 control = glm::vec4(atoi(a[0].c_str()), atoi(a[1].c_str()), atoi(a[2].c_str()), atoi(a[3].c_str()));
 					rotation = glm::vec3(atof(a[4].c_str()), atof(a[5].c_str()), atof(a[6].c_str()));
+					if (control.w == 1) {
+						direction.w = 1;
+					}
+
 					if (control.z == 1) {
-						vel.x += speed * sin(ToRadians(rotation.y));
-						vel.z -= speed * cos(ToRadians(rotation.y));
+						direction.x += sin(ToRadians(rotation.y));
+						direction.z -= cos(ToRadians(rotation.y));
 					}
 					else if (control.z == -1) {
-						vel.x -= speed * sin(ToRadians(rotation.y));
-						vel.z += speed * cos(ToRadians(rotation.y));
+						direction.x -= sin(ToRadians(rotation.y));
+						direction.z += cos(ToRadians(rotation.y));
 					}
 
 					if (control.x == -1) {
-						vel.x += speed * sin(ToRadians(rotation.y - 90));
-						vel.z -= speed * cos(ToRadians(rotation.y - 90));
+						direction.x += sin(ToRadians(rotation.y - 90));
+						direction.z -= cos(ToRadians(rotation.y - 90));
 					}
 					else if (control.x == 1) {
-						vel.x += speed * sin(ToRadians(rotation.y + 90));
-						vel.z -= speed * cos(ToRadians(rotation.y + 90));
+						direction.x += sin(ToRadians(rotation.y + 90));
+						direction.z -= cos(ToRadians(rotation.y + 90));
 					}
 
 					if (control.y == 1) {
-						vel.y += speed;
+						direction.y += 1;
 					}
 					else if (control.y == -1) {
-						vel.y -= speed;
+						direction.y -= 1;
 					}
-					c->SetVelocity(vel);
+					c->SetDirection(direction);
 					c->SetRotation(rotation);
 				} else {
 					glm::vec3 position = glm::vec3(atof(a[0].c_str()), atof(a[1].c_str()), atof(a[2].c_str()));

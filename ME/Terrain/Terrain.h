@@ -1,6 +1,8 @@
 #pragma once
 
 #include <math.h>
+#include <vector>
+#include <iostream>
 
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
@@ -9,7 +11,7 @@
 #include <GLFW\glfw3.h>
 
 #define T_SIZE 16
-#define T_VERTEXCOUNT T_SIZE * 4
+#define T_VERTEXCOUNT 64
 
 namespace Terrain {
 
@@ -23,7 +25,7 @@ namespace Terrain {
 
 		float m_HeightMap[(int)(T_VERTEXCOUNT * T_VERTEXCOUNT)];
 	public:
-		Terrain(glm::vec2 relPos, float heightMap[T_VERTEXCOUNT * T_VERTEXCOUNT]);
+		Terrain(glm::vec2 relPos, float heightMap[T_VERTEXCOUNT * T_VERTEXCOUNT], bool isServer);
 		~Terrain();
 
 		glm::vec3 GetPosition() {

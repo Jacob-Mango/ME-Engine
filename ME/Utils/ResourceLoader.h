@@ -54,6 +54,10 @@ bool LoadModels(Rendering::RenderModule* module) {
 	o << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".obj";
 	module->AddModel(o.str().c_str());
 
+	std::ostringstream t;
+	t << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".png";
+	module->AddTexture(t.str().c_str());
+
 	// std::ostringstream d;
 	// d << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".dae";
 	// module->AddModel(d.str().c_str());

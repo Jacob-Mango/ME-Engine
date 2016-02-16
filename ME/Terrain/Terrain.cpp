@@ -6,7 +6,7 @@ namespace Terrain {
 		m_Position = glm::vec3(relPos.x, 0.0, relPos.y) * glm::vec3(T_SIZE);
 		m_RelativePosition = relPos;
 
-		for (int i = 0; i < T_VERTEXCOUNT; i++) {
+		for (int i = 0; i < T_VERTEXCOUNT * T_VERTEXCOUNT; i++) {
 			m_HeightMap[i] = heightMap[i];
 		}
 
@@ -31,7 +31,7 @@ namespace Terrain {
 		for (int i = 0; i < T_VERTEXCOUNT; i++){
 			for (int j = 0; j < T_VERTEXCOUNT; j++){
 				vertices[vertexPointer * 3] = (GLfloat)j / ((GLfloat)T_VERTEXCOUNT - 1) * T_SIZE;
-				vertices[vertexPointer * 3 + 1] = 0;
+				vertices[vertexPointer * 3 + 1] = m_HeightMap[i + j * T_VERTEXCOUNT];
 				vertices[vertexPointer * 3 + 2] = (GLfloat)i / ((GLfloat)T_VERTEXCOUNT - 1) * T_SIZE;
 				normals[vertexPointer * 3] = 0;
 				normals[vertexPointer * 3 + 1] = 1;

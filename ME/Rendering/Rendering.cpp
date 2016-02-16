@@ -77,12 +77,20 @@ namespace Rendering {
 
 		glBindVertexArray(0);
 		
+		m_TerrainTexture = new Texture("Resources\\Data\\1\\1.png");
+
 		return 0;
 	}
 
 	int RenderModule::AddModel(const char* source) {
 		Model* m = new Model(source);
 		if (m->GetSize() > 0) m_Models.push_back(m);
+		return 0;
+	}
+
+	int RenderModule::AddTexture(const char* source) {	
+		Texture* text = new Texture(source);
+		m_Textures.push_back(text);
 		return 0;
 	}
 
@@ -167,6 +175,8 @@ namespace Rendering {
 		for (unsigned int i = 0; i < m_Models.size(); i++) {
 			if (m_Models[i]->GetVAOID() == 3452816845) continue;
 
+			m_Textures[i]->Bind(0);
+
 			std::vector<glm::mat4> matrixes = m_ModelsToRender[m_Models[i]];
 			if (matrixes.size() != 0) for (unsigned int j = 0; j < matrixes.size(); j++) {
 				m_WorldShader->SetUniformMat4("model", matrixes[j]);
@@ -190,6 +200,8 @@ namespace Rendering {
 				glEnableVertexAttribArray(0);
 				glEnableVertexAttribArray(1);
 				glEnableVertexAttribArray(2);
+
+				m_TerrainTexture->Bind(0);
 
 				glDrawElements(GL_TRIANGLES, t->m_Size, GL_UNSIGNED_INT, 0);
 			}
@@ -223,7 +235,7 @@ namespace Rendering {
 			m_WorldShader->SetUniformMat4("model", m);
 
 
-			// glDrawElements(GL_QUADS, m_SquareModelSize, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_QUADS, m_SquareModelSize, GL_UNSIGNED_INT, 0);
 			
 		}
 		glBindVertexArray(0);

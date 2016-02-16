@@ -77,6 +77,9 @@
     <ClInclude Include="Rendering\GUI.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\Texture.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">
@@ -113,6 +116,9 @@
       <Filter>Terrain</Filter>
     </ClCompile>
     <ClCompile Include="Rendering\GUI.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Texture.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>

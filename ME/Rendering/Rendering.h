@@ -19,6 +19,7 @@
 
 #include "Shader.h"
 #include "Model.h"
+#include "Texture.h"
 #include "GUI.h"
 
 #include "..\Terrain\Terrain.h"
@@ -61,12 +62,15 @@ namespace Rendering {
 		bool m_CursorFocused;
 
 		std::vector<Model*> m_Models;
+		std::vector<Texture*> m_Textures;
 		std::unordered_map<Model*, std::vector<glm::mat4>> m_ModelsToRender;
 
 		Shader* m_WorldShader; 
 		Shader* m_PPShader;
 		Shader* m_GUIShader;
 		Camera* m_Camera;
+
+		Texture* m_TerrainTexture;
 
 		GUI* m_GUI;
 		GLuint m_SquareModelID;
@@ -75,6 +79,8 @@ namespace Rendering {
 		int MakeWindow(int width, int height, const char* title);
 
 		int AddModel(const char* source);
+		int AddTexture(const char* source);
+
 		int AddModelToRender(int id, glm::mat4 trans);
 		int AddModelToRender(int id, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 

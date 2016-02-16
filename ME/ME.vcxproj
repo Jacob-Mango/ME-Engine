@@ -91,6 +91,7 @@
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Model.h" />
     <ClInclude Include="Rendering\Rendering.h" />
+    <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Terrain\Terrain.h" />
     <ClInclude Include="Utils\File.h" />
     <ClInclude Include="Utils\ResourceLoader.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />
     <ClCompile Include="Rendering\Rendering.cpp" />
+    <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Terrain\Terrain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

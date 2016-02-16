@@ -123,7 +123,7 @@ namespace Rendering {
 		glm::mat4 view = glm::mat4(1.0f);
 		view = glm::rotate(view, ToRadians(m_Camera->m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		view = glm::rotate(view, ToRadians(m_Camera->m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::translate(view, -m_Camera->m_Position);
+		view = glm::translate(view, m_Camera->m_Position);
 		m_WorldShader->SetUniformMat4("view", view);
 		m_WorldShader->SetUniformMat4("proj", glm::perspective(ToRadians(90.0f), ((float)(m_Width * 1.0f) / (float)(m_Height * 1.0f)), 0.1f, 1000.0f));
 

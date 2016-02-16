@@ -117,9 +117,6 @@ void Game::Update() {
 				control.y = -1;
 			}
 
-			glm::vec3 d = glm::vec3(direction.x, direction.y, direction.z);
-			m_RenderModule->GetCamera()->m_Position += d * (p->GetSpeed() * ((direction.w * 1.4f) + 1)) * 0.5f;
-
 			float sensitivity = 10.0f / 100.0f;
 			glm::vec2 mousePos = m_RenderModule->GetMousePosition();
 			glm::vec2 mouseMov = m_PreviousMousePosition - mousePos;
@@ -131,9 +128,6 @@ void Game::Update() {
 
 			if (m_RenderModule->GetCamera()->m_Rotation.x > 90) m_RenderModule->GetCamera()->m_Rotation.x = 90;
 			if (m_RenderModule->GetCamera()->m_Rotation.x < -90) m_RenderModule->GetCamera()->m_Rotation.x = -90;
-
-
-
 		}
 
 		glm::vec3 rot = m_RenderModule->GetCamera()->m_Rotation;
@@ -157,6 +151,8 @@ void Game::Update() {
 
 		m_Network->Send("127.0.0.1", SERVERPORT, netSend.str().c_str());
 		m_Level->Update(m_IsServer);
+
+		m_RenderModule->GetCamera()->m_Position = -(p->GetPosition() + glm::vec3(0, 1.8f, 0));
 	}
 }
 

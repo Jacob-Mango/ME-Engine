@@ -24,7 +24,7 @@ namespace Terrain {
 		const int count = T_VERTEXCOUNT * T_VERTEXCOUNT;
 		GLfloat vertices[count * 3];
 		GLfloat normals[count * 3];
-		GLfloat uv[count * 2];
+		GLfloat uvs[count * 2];
 		GLuint indices[6 * (T_VERTEXCOUNT - 1) * (T_VERTEXCOUNT - 1)];
 
 		int vertexPointer = 0;
@@ -36,8 +36,8 @@ namespace Terrain {
 				normals[vertexPointer * 3] = 0;
 				normals[vertexPointer * 3 + 1] = 1;
 				normals[vertexPointer * 3 + 2] = 0;
-				uv[vertexPointer * 2] = (GLfloat)j / ((GLfloat)T_VERTEXCOUNT - 1);
-				uv[vertexPointer * 2 + 1] = (GLfloat)i / ((GLfloat)T_VERTEXCOUNT - 1);
+				uvs[vertexPointer * 2] = (GLfloat)j / ((GLfloat)T_VERTEXCOUNT - 1);
+				uvs[vertexPointer * 2 + 1] = (GLfloat)i / ((GLfloat)T_VERTEXCOUNT - 1);
 				vertexPointer++;
 			}
 		}
@@ -61,6 +61,10 @@ namespace Terrain {
 		glBindVertexArray(m_VAOID);
 		m_Size = sizeof(indices) / sizeof(indices[0]);
 
+#define old
+
+#ifdef old
+
 		GLuint vboID;
 
 		glGenBuffers(1, &vboID);
@@ -78,7 +82,7 @@ namespace Terrain {
 
 		glGenBuffers(1, &vboID);
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uvs), uvs, GL_STATIC_DRAW);
 		glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
 
 		glEnableVertexAttribArray(2);
@@ -88,6 +92,12 @@ namespace Terrain {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
 		glVertexAttribPointer(2, 3, GL_FLOAT, false, 0, 0);
 
+#else
+		Rendering::Model::BindIndicesBuffer(indices);
+		Rendering::Model::StoreDataInAttributeList(0, 3, vertices);
+		Rendering::Model::StoreDataInAttributeList(1, 2, uvs);
+		Rendering::Model::StoreDataInAttributeList(2, 3, normals);
+#endif
 		glBindVertexArray(0);
 	}
 }

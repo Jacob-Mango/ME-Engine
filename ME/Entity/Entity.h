@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include <glm\glm.hpp>
 
@@ -19,7 +20,10 @@ private:
 	GLuint m_ModelID;
 	unsigned int m_EntityID;
 
-	bool m_CanMove;
+	int m_AirTime = 0;
+	bool m_CanMove = false;
+	bool m_InJump = false;
+	bool m_CanJump = true;
 public: 
 	Entity(GLuint modelID, unsigned int entityID, bool canMove, float speed);
 	Entity(glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, bool canMove, float speed);

@@ -10,6 +10,8 @@
 #include <glew\glew.h>
 #include <GLFW\glfw3.h>
 
+#include "..\Rendering\Model.h"
+
 #define T_SIZE 16
 #define T_VERTEXCOUNT 64
 

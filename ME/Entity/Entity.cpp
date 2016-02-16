@@ -17,17 +17,32 @@ Entity::~Entity() {
 }
 
 int Entity::Update() {
-	glm::vec3 d = glm::vec3(m_Direction.x, m_Direction.y, m_Direction.z);
+	float gravity = 9.81f;
+	glm::vec3 d = glm::vec3(m_Direction.x, 0, m_Direction.z);
 
-	m_Velocity += d * (m_Speed * ((m_Direction.w * 1.4f) + 1));
+	if (m_CanJump == true) {
+		if (m_Direction.y == 1.0f) {
+			m_InJump = true;
+			m_CanJump = false;
+		}
+	} else if (m_InJump == true) {
+		m_Velocity.y += 0.5f * gravity / 30.0f;
+	}
+
+	m_Velocity += d * (m_Speed * (m_Direction.w + 1));
 	m_Direction = glm::vec4(0);
 
 	if (m_CanMove) {
-		m_Velocity.y -= 1.0f / 30.0f;
+		m_Velocity.y -= gravity / 30.0f * m_AirTime / 10.0f;
+		m_AirTime++;
 
-		if (m_Position.y + m_Velocity.y < 0) {
-			m_Position.y = 0;
-			m_Velocity.y = m_Velocity.y * 0.95f;
+		float h = 0.0f;
+		if (m_Position.y + m_Velocity.y < h) {
+			m_AirTime = 0;
+			m_Velocity.y = 0.0f;
+			m_Position.y = h;
+			m_InJump = false;
+			m_CanJump = true;
 		}
 	}
 

@@ -43,7 +43,8 @@ namespace Rendering {
 			if (mesh->mTextureCoords[0]) {
 				textures.push_back(mesh->mTextureCoords[0][i].x);
 				textures.push_back(mesh->mTextureCoords[0][i].y);
-			} else {
+			}
+			else {
 				textures.push_back(0);
 				textures.push_back(0);
 			}
@@ -52,7 +53,8 @@ namespace Rendering {
 				normals.push_back(mesh->mNormals[i].x);
 				normals.push_back(mesh->mNormals[i].y);
 				normals.push_back(mesh->mNormals[i].z);
-			} else {
+			}
+			else {
 				normals.push_back(0);
 				normals.push_back(1);
 				normals.push_back(0);
@@ -66,10 +68,44 @@ namespace Rendering {
 			}
 		}
 
-		m_Size = indices.size() * sizeof(GLuint);
+		m_Size = indices.size();
 
 		glGenVertexArrays(1, &m_VAOID);
 		glBindVertexArray(m_VAOID);
+
+#define old
+#ifdef old
+
+		GLuint vboID;
+
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(indices[0]), indices.data(), GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), vertices.data(), GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+
+		glEnableVertexAttribArray(1);
+
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ARRAY_BUFFER, textures.size() * sizeof(textures[0]), textures.data(), GL_STATIC_DRAW);
+		glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+
+		if (hasNormals) {
+
+			glEnableVertexAttribArray(2);
+
+			glGenBuffers(1, &vboID);
+			glBindBuffer(GL_ARRAY_BUFFER, vboID);
+			glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(normals[0]), normals.data(), GL_STATIC_DRAW);
+			glVertexAttribPointer(2, 3, GL_FLOAT, false, 0, 0);
+		}
+#else
 
 		BindIndicesBuffer(indices);
 
@@ -77,35 +113,45 @@ namespace Rendering {
 		StoreDataInAttributeList(1, 2, textures);
 		if (hasNormals)
 			StoreDataInAttributeList(2, 3, normals);
+#endif
 
 		glBindVertexArray(0);
 	}
 
 	void Model::BindIndicesBuffer(std::vector<GLuint> data) {
-		GLuint vboID;
-		glGenBuffers(1, &vboID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size(), data.data(), GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		BindIndicesBuffer(data.data());
 	}
 
 	void Model::StoreDataInAttributeList(int attributeNumber, int attributeSize, std::vector<GLfloat> data) {
-		GLuint vboID;
-		glEnableVertexAttribArray(attributeNumber);
-		glGenBuffers(1, &vboID);
-		glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(data[0]), data.data(), GL_STATIC_DRAW);
-		glVertexAttribPointer(attributeNumber, attributeSize, GL_FLOAT, false, 0, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		StoreDataInAttributeList(attributeNumber, attributeSize, data.data());
 	}
 
 	void Model::StoreDataInAttributeList(int attributeNumber, int attributeSize, std::vector<GLuint> data) {
+		StoreDataInAttributeList(attributeNumber, attributeSize, data.data());
+	}
+
+	void Model::BindIndicesBuffer(GLuint data[]) {
+		GLuint vboID;
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
+	}
+
+	void Model::StoreDataInAttributeList(int attributeNumber, int attributeSize, GLfloat data[]) {
 		GLuint vboID;
 		glEnableVertexAttribArray(attributeNumber);
 		glGenBuffers(1, &vboID);
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(data[0]), data.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
 		glVertexAttribPointer(attributeNumber, attributeSize, GL_FLOAT, false, 0, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void Model::StoreDataInAttributeList(int attributeNumber, int attributeSize, GLuint data[]) {
+		GLuint vboID;
+		glEnableVertexAttribArray(attributeNumber);
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
+		glVertexAttribPointer(attributeNumber, attributeSize, GL_UNSIGNED_INT, false, 0, 0);
 	}
 }

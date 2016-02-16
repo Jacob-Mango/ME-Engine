@@ -74,6 +74,9 @@
     <ClInclude Include="Terrain\Terrain.h">
       <Filter>Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\GUI.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">
@@ -108,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="Terrain\Terrain.cpp">
       <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\GUI.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

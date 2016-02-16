@@ -87,6 +87,7 @@
     <ClInclude Include="Network\Network.h" />
     <ClInclude Include="Network\Packet.h" />
     <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Rendering\GUI.h" />
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Model.h" />
     <ClInclude Include="Rendering\Rendering.h" />
@@ -105,6 +106,7 @@
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Network\Packet.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Rendering\GUI.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />
     <ClCompile Include="Rendering\Rendering.cpp" />

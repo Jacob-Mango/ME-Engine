@@ -26,6 +26,8 @@ namespace Network {
 
 		void SendOnUpdate();
 	private:
+		bool VectorNear(glm::vec3 v1, glm::vec3 v2, float dist);
+	private:
 		friend void HandleIncoming(Packet* p);
 	};
 }

@@ -30,6 +30,7 @@ namespace Rendering {
 		}
 
 		m_WorldShader = new Shader(ReadFile("Resources\\Shaders\\World.vs").c_str(), ReadFile("Resources\\Shaders\\World.fs").c_str());
+		m_GUIShader = new Shader(ReadFile("Resources\\Shaders\\GUI.vs").c_str(), ReadFile("Resources\\Shaders\\GUI.fs").c_str());
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -40,6 +41,42 @@ namespace Rendering {
 		glEnable(GL_FRAMEBUFFER_SRGB);
 		glEnable(GL_MULTISAMPLE);
 
+		
+		m_GUI = new GUI(glm::vec3(0), glm::vec3(0));
+
+		glGenVertexArrays(1, &m_SquareModelID);
+		glBindVertexArray(m_SquareModelID);
+
+		GLfloat vertices[] = {
+			0.0f, 1.0f, 0.0f, 
+			0.0f, 0.0f, 0.0f, 
+			1.0f, 0.0f, 0.0f, 
+			1.0f, 1.0f, 0.0f
+		}; 
+
+		GLfloat textures[] = {
+			0.0f, 1.0f, 
+			0.0f, 0.0f, 
+			1.0f, 0.0f, 
+			1.0f, 1.0f
+		};
+
+		m_SquareModelSize = sizeof(vertices) / sizeof(vertices[0]);
+		
+		GLuint vboID;
+
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(textures), textures, GL_STATIC_DRAW);
+		glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+
+		glBindVertexArray(0);
+		
 		return 0;
 	}
 
@@ -139,9 +176,8 @@ namespace Rendering {
 				glEnableVertexAttribArray(1);
 				glEnableVertexAttribArray(2);
 
-				// glDrawElements(GL_TRIANGLES, m_Models[i]->GetSize(), GL_UNSIGNED_INT, 0);
+				glDrawElements(GL_TRIANGLES, m_Models[i]->GetSize(), GL_UNSIGNED_INT, 0);
 
-				glDrawArrays(GL_TRIANGLES, 0, m_Models[i]->GetSize());
 			}
 		}
 
@@ -165,6 +201,35 @@ namespace Rendering {
 	}
 
 	int RenderModule::RenderPostProccessEffects() {
+		return 0;
+	}
+
+	int RenderModule::RenderGUI() {
+		m_GUIShader->Start();
+
+		float aspect = (float)m_Width / (float)m_Height;
+		m_GUIShader->SetUniformMat4("proj", glm::ortho(-aspect, aspect, -1.0f, 1.0f, 1.0f, -1.0f));
+
+		glBindVertexArray(m_SquareModelID);
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+
+		for (unsigned int i = 0; i < m_GUI->m_GUIItems.size(); i++) {
+			
+			
+			glm::mat4 m = glm::mat4(1.0);
+			glm::translate(m, m_GUI->m_GUIItems[i]->m_Position);
+			glm::scale(m, m_GUI->m_GUIItems[i]->m_Size);
+			m_WorldShader->SetUniformMat4("model", m);
+
+
+			// glDrawElements(GL_QUADS, m_SquareModelSize, GL_UNSIGNED_INT, 0);
+			
+		}
+		glBindVertexArray(0);
+
+
+		m_GUIShader->Stop();
 		return 0;
 	}
 
@@ -212,6 +277,14 @@ namespace Rendering {
 
 	Camera* RenderModule::GetCamera() {
 		return m_Camera;
+	}
+
+	GUI* RenderModule::GetGUI() {
+		return m_GUI;
+	}
+
+	void RenderModule::SetGUI(GUI* gui) {
+		m_GUI = gui;
 	}
 
 	int RenderModule::AddModelToRender(int id, glm::mat4 trans) {

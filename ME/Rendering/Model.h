@@ -50,9 +50,14 @@ namespace Rendering {
 		GLuint GetSize();
 	private:
 		void Load(const aiMesh* mesh, bool hasNormals);
-		void StoreDataInAttributeList(int attributeNumber, int attributeSize, std::vector<GLfloat> data);
-		void StoreDataInAttributeList(int attributeNumber, int attributeSize, std::vector<GLuint> data);
-		void BindIndicesBuffer(std::vector<GLuint> data);
+	public:
+		static void BindIndicesBuffer(GLuint data[]);
+		static void StoreDataInAttributeList(int attributeNumber, int attributeSize, GLfloat data[]);
+		static void StoreDataInAttributeList(int attributeNumber, int attributeSize, GLuint data[]);
+
+		static void BindIndicesBuffer(std::vector<GLuint> data);
+		static void StoreDataInAttributeList(int attributeNumber, int attributeSize, std::vector<GLfloat> data);
+		static void StoreDataInAttributeList(int attributeNumber, int attributeSize, std::vector<GLuint> data);
 	};
 
 }

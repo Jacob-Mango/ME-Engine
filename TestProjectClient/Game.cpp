@@ -90,8 +90,7 @@ void Game::Update() {
 				direction.x += sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
 				direction.z -= cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
 				control.z = 1;
-			}
-			else if (m_RenderModule->IsKeyPressed(GLFW_KEY_S)) {
+			} else if (m_RenderModule->IsKeyPressed(GLFW_KEY_S)) {
 				direction.x -= sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
 				direction.z += cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y));
 				control.z = -1;
@@ -101,8 +100,7 @@ void Game::Update() {
 				direction.x += sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y - 90));
 				direction.z -= cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y - 90));
 				control.x = -1;
-			}
-			else if (m_RenderModule->IsKeyPressed(GLFW_KEY_D)) {
+			} else if (m_RenderModule->IsKeyPressed(GLFW_KEY_D)) {
 				direction.x += sin(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y + 90));
 				direction.z -= cos(ToRadians(m_RenderModule->GetCamera()->m_Rotation.y + 90));
 				control.x = 1;
@@ -111,9 +109,8 @@ void Game::Update() {
 			if (m_RenderModule->IsKeyPressed(GLFW_KEY_SPACE)) {
 				direction.y += 1;
 				control.y = 1;
-			}
-			else if (m_RenderModule->IsKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
-				direction.y -= 1;
+			} else if (m_RenderModule->IsKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
+				direction.y -= -1;
 				control.y = -1;
 			}
 

@@ -19,6 +19,7 @@
 
 #include "Shader.h"
 #include "Model.h"
+#include "GUI.h"
 
 #include "..\Terrain\Terrain.h"
 #include "..\Utils\File.h"
@@ -64,7 +65,12 @@ namespace Rendering {
 
 		Shader* m_WorldShader; 
 		Shader* m_PPShader;
+		Shader* m_GUIShader;
 		Camera* m_Camera;
+
+		GUI* m_GUI;
+		GLuint m_SquareModelID;
+		int m_SquareModelSize;
 	public:
 		int MakeWindow(int width, int height, const char* title);
 
@@ -75,9 +81,13 @@ namespace Rendering {
 		int PrepareRender();
 		int RenderWorld(std::vector<Terrain::Terrain*> m_Terrains);
 		int RenderPostProccessEffects();
+		int RenderGUI();
 		int EndRender();
 
 		Camera* GetCamera();
+		GUI* GetGUI();
+
+		void SetGUI(GUI* gui);
 
 		glm::vec2 GetWindowSize();
 

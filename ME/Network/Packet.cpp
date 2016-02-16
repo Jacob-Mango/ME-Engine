@@ -122,6 +122,7 @@ namespace Network {
 				} else {
 					glm::vec3 position = glm::vec3(atof(a[0].c_str()), atof(a[1].c_str()), atof(a[2].c_str()));
 					rotation = glm::vec3(atof(a[3].c_str()), atof(a[4].c_str()), atof(a[5].c_str()));
+					bool n = p->VectorNear(position, c->GetPosition(), 1.0f);
 					c->SetPosition(position);
 					c->SetRotation(rotation);
 				}
@@ -134,6 +135,10 @@ namespace Network {
 		for (unsigned int i = 0; i < m_Level->GetPlayers().size(); i++) {
 			m_Network->Send(m_Level->GetPlayers()[i]->GetAddress(), buffer);
 		}
+	}
+
+	bool Packet::VectorNear(glm::vec3 v1, glm::vec3 v2, float dist) {
+		return v1.length() + dist <= v2.length() && v1.length() - dist >= v2.length();
 	}
 
 	void Packet::SendOnUpdate() {
@@ -155,7 +160,12 @@ namespace Network {
 				send << code;
 
 				send << pos.x << "L" << pos.y << "L" << pos.z << "L" << rot.x << "L" << rot.y << "L" << rot.z;
-				SendToAll(send.str().c_str());
+
+				for (unsigned int j = 0; j < m_Level->GetPlayers().size(); j++) {
+					// if (VectorNear(m_Level->GetPlayers()[j]->GetPosition(), pos, 1000)) {
+						m_Network->Send(m_Level->GetPlayers()[j]->GetAddress(), send.str().c_str());
+					// }
+				}
 			}
 		} else {
 			

@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 #include <array>
+#include <time.h>
 
+#include "../Terrain/Terrain.h"
 #include "../Rendering/Rendering.h"
 #include "../Physics/Physics.h"
 #include "../Entity/Player.h"
@@ -37,6 +39,7 @@ namespace Level {
 		unsigned int GetFreeEntityCode();
 
 		std::vector<Terrain::Terrain*> GetTerrainsToRender();
+		float GetHeightUnderPlayer(float x, float z);
 
 		void Render(Rendering::RenderModule* module, int playerID);
 		void Update(bool isServer);

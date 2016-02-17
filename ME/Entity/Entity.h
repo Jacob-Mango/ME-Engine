@@ -8,10 +8,13 @@
 
 #include <glew\glew.h>
 
+#include "../Terrain/Terrain.h"
+
 class Entity {
 private:
 	glm::vec3 m_Position;
 	glm::vec3 m_Velocity;
+	glm::vec3 m_Force;
 	glm::vec3 m_Rotation;
 	glm::vec4 m_Direction;
 
@@ -29,7 +32,7 @@ public:
 	Entity(glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, bool canMove, float speed);
 	~Entity();
 
-	int Update();
+	int Update(std::vector<Terrain::Terrain*> terrains);
 	int Tick();
 
 	unsigned int GetEntityID() {
@@ -75,4 +78,6 @@ public:
 	void SetDirection(glm::vec4 r) {
 		m_Direction = r;
 	}
+
+	float GetTerrainHeight(float x, float z, std::vector<Terrain::Terrain*> terrains);
 };

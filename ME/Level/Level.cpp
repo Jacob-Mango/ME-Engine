@@ -96,15 +96,20 @@ namespace Level {
 
 	void Level::Update(bool isServer) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
-			m_Players[i]->Update();
+			m_Players[i]->Update(m_Terrains);
 		}
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
-			m_Entities[i]->Update();
+			m_Entities[i]->Update(m_Terrains);
 		}
 
 		if (m_Terrains.size() == 0) {
-			float h[T_VERTEXCOUNT * T_VERTEXCOUNT] = { 0 };
-			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(0, 0), h, isServer));
+			unsigned int seed = time(NULL);
+			int size = 4;
+			for (int x = 0; x < size; x++) {
+				for (int z = 0; z < size; z++) {
+					m_Terrains.push_back(new Terrain::Terrain(glm::vec2(x, z), isServer, seed));
+				}
+			}
 		}
 	}
 

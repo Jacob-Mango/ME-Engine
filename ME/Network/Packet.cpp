@@ -164,9 +164,9 @@ namespace Network {
 				send << pos.x << "L" << pos.y << "L" << pos.z << "L" << rot.x << "L" << rot.y << "L" << rot.z;
 
 				for (unsigned int j = 0; j < m_Level->GetPlayers().size(); j++) {
-					// if (VectorNear(m_Level->GetPlayers()[j]->GetPosition(), pos, 1000)) {
+					if (VectorNear(m_Level->GetPlayers()[j]->GetPosition(), pos, 1000)) {
 						m_Network->Send(m_Level->GetPlayers()[j]->GetAddress(), send.str().c_str());
-					// }
+					}
 				}
 			}
 		} else {

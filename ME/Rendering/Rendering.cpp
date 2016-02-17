@@ -186,8 +186,9 @@ namespace Rendering {
 				glEnableVertexAttribArray(1);
 				glEnableVertexAttribArray(2);
 
-				glDrawElements(GL_TRIANGLES, m_Models[i]->GetSize(), GL_UNSIGNED_INT, 0);
+				// glDrawElements(GL_TRIANGLES, m_Models[i]->GetSize(), GL_UNSIGNED_INT, 0);
 
+				glDrawArrays(GL_TRIANGLES, 0, m_Models[i]->GetSize());
 			}
 		}
 

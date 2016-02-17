@@ -123,8 +123,10 @@ namespace Network {
 					glm::vec3 position = glm::vec3(atof(a[0].c_str()), atof(a[1].c_str()), atof(a[2].c_str()));
 					rotation = glm::vec3(atof(a[3].c_str()), atof(a[4].c_str()), atof(a[5].c_str()));
 					bool n = p->VectorNear(position, c->GetPosition(), 1.0f);
-					c->SetPosition(position);
-					c->SetRotation(rotation);
+					if (!n) {
+						c->SetPosition(position);
+						c->SetRotation(rotation);
+					}
 				}
 			}
 		}

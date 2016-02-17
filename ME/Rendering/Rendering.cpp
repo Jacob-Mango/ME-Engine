@@ -230,7 +230,7 @@ namespace Rendering {
 			
 			
 			glm::mat4 m = glm::mat4(1.0);
-			glm::translate(m, m_GUI->m_GUIItems[i]->m_Position);
+		   	glm::translate(m, m_GUI->m_GUIItems[i]->m_Position);
 			glm::scale(m, m_GUI->m_GUIItems[i]->m_Size);
 			m_WorldShader->SetUniformMat4("model", m);
 

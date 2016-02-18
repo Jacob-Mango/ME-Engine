@@ -209,8 +209,8 @@ namespace Terrain {
 		else
 			heightU = m_HeightMap[(+0 + j) + (+0 + i) * T_VERTEXCOUNT];
 
-		glm::vec3 normal = glm::vec3(heightL - heightR, 4.0f, heightD - heightU);
-		normal = normal / glm::vec3(normal.length());
+		glm::vec3 normal = glm::vec3(heightL - heightR, 1.0f, heightD - heightU);
+		normal /= glm::vec3(sqrtf((normal.x * normal.x) + (normal.y * normal.y) + (normal.z * normal.z)));
 
 		return normal;
 	}

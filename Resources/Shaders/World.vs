@@ -17,7 +17,7 @@ uniform mat4 model = mat4(1.0);
 void main() {
 	gl_Position = proj * view * model * vec4(position, 1.0);
 
-	outData.position = position;
+	outData.position = (model * vec4(position, 1.0)).xyz;
 	outData.uv = uv;
 	outData.normal = normal;
 }

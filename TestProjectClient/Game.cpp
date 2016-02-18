@@ -68,6 +68,7 @@ void Game::Render() {
 
 	m_RenderModule->RenderWorld(m_Level->GetTerrainsToRender());
 	m_RenderModule->RenderPostProccessEffects();
+	m_RenderModule->RenderGUI();
 	m_RenderModule->EndRender();
 	
 }

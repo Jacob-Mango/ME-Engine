@@ -27,7 +27,7 @@ namespace Terrain {
 		GLuint m_VAOID;
 		unsigned int m_Size;
 
-		float m_HeightMap[(int)(T_VERTEXCOUNT * T_VERTEXCOUNT)];
+		float m_HeightMap[(int)((T_VERTEXCOUNT) * (T_VERTEXCOUNT))];
 	private:
 		glm::vec3 m_Position;
 		glm::vec2 m_RelativePosition;

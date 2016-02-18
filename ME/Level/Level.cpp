@@ -104,7 +104,7 @@ namespace Level {
 
 		if (m_Terrains.size() == 0) {
 			unsigned int seed = time(NULL);
-			int size = 4;
+			int size = 8;
 			for (int x = 0; x < size; x++) {
 				for (int z = 0; z < size; z++) {
 					m_Terrains.push_back(new Terrain::Terrain(glm::vec2(x, z), isServer, seed));

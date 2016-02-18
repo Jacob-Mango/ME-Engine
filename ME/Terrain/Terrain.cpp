@@ -7,39 +7,33 @@ namespace Terrain {
 
 	namespace Generator {
 
-		unsigned long seed;
-
-		float AMPLITUDE = 10.0f;
-		int OCTAVES = 6;
-		float ROUGHNESS = 0.1f;
-
-		float GeneratedHeight(unsigned int x, unsigned int y);
-		float GetInterpolatedNoise(float x, float z);
+		float GeneratedHeight(unsigned int x, unsigned int y, unsigned long seed);
+		float GetInterpolatedNoise(float x, float z, unsigned long seed);
 		float Interpolate(float a, float b, float blend);
-		float GetSmoothNoise(int x, int z);
-		float GetNoise(unsigned int x, unsigned int y);
+		float GetSmoothNoise(int x, int z, unsigned long seed);
+		float GetNoise(unsigned int x, unsigned int y, unsigned long seed);
 
-		float GeneratedHeight(unsigned int x, unsigned int y) {
+		float GeneratedHeight(unsigned int x, unsigned int y, unsigned long seed, float amplitude, int octaves, float roughness) {
 			float total = 0;
-			float d = (float) pow(2, OCTAVES - 1);
-			for (int i = 0; i < OCTAVES; i++) {
+			float d = (float)pow(2, octaves - 1);
+			for (int i = 0; i < octaves; i++) {
 				float freq = (float)(pow(2, i) / d);
-				float amp = (float)pow(ROUGHNESS, i) * AMPLITUDE;
-				total += GetInterpolatedNoise(x * freq, y * freq) * amp;
+				float amp = (float)pow(roughness, i) * amplitude;
+				total += GetInterpolatedNoise(x * freq, y * freq, seed) * amp;
 			}
 			return total;
 		}
 
-		float GetInterpolatedNoise(float x, float z) {
+		float GetInterpolatedNoise(float x, float z, unsigned long seed) {
 			int intX = (int)x;
 			int intZ = (int)z;
 			float fracX = x - intX;
 			float fracZ = z - intZ;
 
-			float v1 = GetSmoothNoise(intX, intZ);
-			float v2 = GetSmoothNoise(intX + 1, intZ);
-			float v3 = GetSmoothNoise(intX, intZ + 1);
-			float v4 = GetSmoothNoise(intX + 1, intZ + 1);
+			float v1 = GetSmoothNoise(intX, intZ, seed);
+			float v2 = GetSmoothNoise(intX + 1, intZ, seed);
+			float v3 = GetSmoothNoise(intX, intZ + 1, seed);
+			float v4 = GetSmoothNoise(intX + 1, intZ + 1, seed);
 			float i1 = Interpolate(v1, v2, fracX);
 			float i2 = Interpolate(v3, v4, fracX);
 			return Interpolate(i1, i2, fracZ);
@@ -51,14 +45,14 @@ namespace Terrain {
 			return a * (1.0f - f) + b * f;
 		}
 
-		float GetSmoothNoise(int x, int z) {
-			float corners = (GetNoise(x - 1, z - 1) + GetNoise(x + 1, z - 1) + GetNoise(x - 1, z + 1) + GetNoise(x + 1, z + 1)) / 16.0f;
-			float sides = (GetNoise(x - 1, z) + GetNoise(x + 1, z) + GetNoise(x, z - 1) + GetNoise(x, z + 1)) / 8.0f;
-			float center = GetNoise(x, z) / 4.0f;
+		float GetSmoothNoise(int x, int z, unsigned long seed) {
+			float corners = (GetNoise(x - 1, z - 1, seed) + GetNoise(x + 1, z - 1, seed) + GetNoise(x - 1, z + 1, seed) + GetNoise(x + 1, z + 1, seed)) / 16.0f;
+			float sides = (GetNoise(x - 1, z, seed) + GetNoise(x + 1, z, seed) + GetNoise(x, z - 1, seed) + GetNoise(x, z + 1, seed)) / 8.0f;
+			float center = GetNoise(x, z, seed) / 4.0f;
 			return corners + sides + center;
 		}
 
-		float GetNoise(unsigned int x, unsigned int y) {
+		float GetNoise(unsigned int x, unsigned int y, unsigned long seed) {
 			srand(x * 49632 + y * 325176 + seed);
 			return randf();
 		}
@@ -86,7 +80,15 @@ namespace Terrain {
 
 		for (int x = 0; x < T_VERTEXCOUNT; x++) {
 			for (int y = 0; y < T_VERTEXCOUNT; y++) {
-				m_HeightMap[x + y * T_VERTEXCOUNT] = Generator::GeneratedHeight(x + (m_Position.x * T_MULSIZE), y + (m_Position.z * T_MULSIZE));
+				float xC = (m_Position.x * T_MULSIZE) - 1.0f;
+				float yC = (m_Position.z * T_MULSIZE) - 1.0f;
+
+				if (x == 0) xC -= 1.0f;
+				if (y == 0) yC -= 1.0f;
+
+				float terrain = Generator::GeneratedHeight(x + xC, y + yC, seed, 20.0f, 6, 0.1f);
+				float distortian = Generator::GeneratedHeight(x + xC, y + yC, seed, 1.0f, 4, 0.7f);
+				m_HeightMap[x + y * T_VERTEXCOUNT] = (terrain + distortian) / 2.0f;
 			}
 		}
 

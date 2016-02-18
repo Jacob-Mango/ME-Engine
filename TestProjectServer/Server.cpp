@@ -24,6 +24,6 @@ void Server::Update() {
 }
 
 void Server::Tick() {
-	m_Level->Tick();
+	m_Level->Tick(m_IsServer);
 	std::cout << std::endl << m_UpdatesPerSecond << std::endl;
 }

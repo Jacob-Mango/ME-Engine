@@ -155,6 +155,6 @@ void Game::Update() {
 }
 
 void Game::Tick() {
-	m_Level->Tick();
+	m_Level->Tick(m_IsServer);
 	std::cout << std::endl << m_FramesPerSecond << std::endl;
 }

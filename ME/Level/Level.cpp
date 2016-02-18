@@ -101,19 +101,9 @@ namespace Level {
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			m_Entities[i]->Update(m_Terrains);
 		}
-
-		if (m_Terrains.size() == 0) {
-			unsigned int seed = time(NULL);
-			int size = 8;
-			for (int x = 0; x < size; x++) {
-				for (int z = 0; z < size; z++) {
-					m_Terrains.push_back(new Terrain::Terrain(glm::vec2(x, z), isServer, seed));
-				}
-			}
-		}
 	}
 
-	void Level::Tick() {
+	void Level::Tick(bool isServer) {
 		std::cout << "Players Online: " << std::endl;
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			m_Players[i]->Tick();
@@ -123,6 +113,18 @@ namespace Level {
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			m_Entities[i]->Tick();
 			std::cout << "	" << m_Entities[i]->GetEntityID() << std::endl;
+		}
+
+		if (m_XTerrainGen < m_SizeTerrain && m_YTerrainGen < m_SizeTerrain) {
+			unsigned int seed = 100312414141;
+			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(m_XTerrainGen, m_YTerrainGen), isServer, seed));
+
+			m_XTerrainGen++;
+
+			if (m_XTerrainGen == m_SizeTerrain) {
+				m_XTerrainGen = 0;
+				m_YTerrainGen++;
+			}
 		}
 	}
 }

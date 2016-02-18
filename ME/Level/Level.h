@@ -20,6 +20,10 @@ namespace Level {
 		std::vector<Entity*> m_Entities;
 
 		std::vector<Terrain::Terrain*> m_Terrains;
+
+		int m_SizeTerrain = 4;
+		int m_XTerrainGen = 0;
+		int m_YTerrainGen = 0;
 	public:
 		Level();
 		~Level();
@@ -43,6 +47,6 @@ namespace Level {
 
 		void Render(Rendering::RenderModule* module, int playerID);
 		void Update(bool isServer);
-		void Tick();
+		void Tick(bool isServer);
 	};
 }

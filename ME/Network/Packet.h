@@ -2,6 +2,7 @@
 
 #include <thread>
 #include <iostream>
+#include <math.h>
 #include <string>
 #include <sstream>
 
@@ -10,6 +11,8 @@
 #include "..\Level\Level.h"
 #include "..\Entity\Player.h"
 #include "Network.h"
+
+#define DISTANCE(i) (i.x * i.x) + (i.y * i.y) + (i.z * i.z)
 
 namespace Network {
 
@@ -26,7 +29,7 @@ namespace Network {
 
 		void SendOnUpdate();
 	private:
-		bool VectorNear(glm::vec3 v1, glm::vec3 v2, float dist);
+		bool VectorIn(glm::vec3 v1, glm::vec3 v2, float dist);
 	private:
 		friend void HandleIncoming(Packet* p);
 	};

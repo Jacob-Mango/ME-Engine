@@ -11,8 +11,6 @@
 #include "../Physics/Physics.h"
 #include "../Entity/Player.h"
 
-#define MAPSIZE 4
-
 namespace Level {
 	class Level {
 	private:
@@ -21,7 +19,7 @@ namespace Level {
 
 		std::vector<Terrain::Terrain*> m_Terrains;
 
-		int m_SizeTerrain = 4;
+		int m_SizeTerrain = 8;
 		int m_XTerrainGen = 0;
 		int m_YTerrainGen = 0;
 	public:

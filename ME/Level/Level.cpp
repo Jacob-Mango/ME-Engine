@@ -101,6 +101,17 @@ namespace Level {
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			m_Entities[i]->Update(m_Terrains);
 		}
+		if (m_XTerrainGen < m_SizeTerrain && m_YTerrainGen < m_SizeTerrain) {
+			unsigned int seed = 100312414141;
+			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(m_XTerrainGen, m_YTerrainGen), isServer, seed));
+
+			m_XTerrainGen++;
+
+			if (m_XTerrainGen == m_SizeTerrain) {
+				m_XTerrainGen = 0;
+				m_YTerrainGen++;
+			}
+		}
 	}
 
 	void Level::Tick(bool isServer) {
@@ -113,18 +124,6 @@ namespace Level {
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
 			m_Entities[i]->Tick();
 			std::cout << "	" << m_Entities[i]->GetEntityID() << std::endl;
-		}
-
-		if (m_XTerrainGen < m_SizeTerrain && m_YTerrainGen < m_SizeTerrain) {
-			unsigned int seed = 100312414141;
-			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(m_XTerrainGen, m_YTerrainGen), isServer, seed));
-
-			m_XTerrainGen++;
-
-			if (m_XTerrainGen == m_SizeTerrain) {
-				m_XTerrainGen = 0;
-				m_YTerrainGen++;
-			}
 		}
 	}
 }

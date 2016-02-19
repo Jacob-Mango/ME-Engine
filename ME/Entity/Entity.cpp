@@ -19,7 +19,7 @@ Entity::~Entity() {
 }
 
 int Entity::Update(std::vector<Terrain::Terrain*> terrains) {
-	float gravity = 9.81f;
+	float gravity = -9.81f;
 	glm::vec3 d = glm::vec3(m_Direction.x, 0, m_Direction.z);
 
 	if (m_CanJump == true) {
@@ -29,14 +29,15 @@ int Entity::Update(std::vector<Terrain::Terrain*> terrains) {
 		}
 	} else if (m_InJump == true) {
 		float jumpPower = 0.75f;
-		m_Velocity.y += jumpPower * (gravity) / 30.0f;
+		m_Velocity.y += jumpPower * (+gravity) / 30.0f;
 	}
 
 	m_Velocity += d * (m_Speed * (m_Direction.w + 1));
 	m_Direction = glm::vec4(0);
 
 	if (m_CanMove) {
-		m_Velocity.y -= gravity / 30.0f * (m_AirTime / 10.0f);
+		float yAccel = (gravity + m_Velocity.y) / (30.0f * 30.0f);
+		m_Velocity.y = yAccel;
 		m_AirTime++;
 
 		float xzh = GetTerrainHeight(m_Position.x + m_Velocity.x, m_Position.z + m_Velocity.z, terrains);
@@ -48,7 +49,7 @@ int Entity::Update(std::vector<Terrain::Terrain*> terrains) {
 
 		if (m_Position.y + m_Velocity.y < xzh) {
 			m_AirTime = 0;
-			m_Velocity.y = 0.0f;
+			m_Velocity.y = -m_Velocity.y;
 			m_Position.y = xzh;
 			m_InJump = false;
 			m_CanJump = true;

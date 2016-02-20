@@ -94,15 +94,15 @@ namespace Level {
 		}
 	}
 
-	void Level::Update(bool isServer) {
+	void Level::Update(bool isServer, float delta) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
-			m_Players[i]->Update(m_Terrains);
+			m_Players[i]->Update(m_Terrains, delta);
 		}
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
-			m_Entities[i]->Update(m_Terrains);
+			m_Entities[i]->Update(m_Terrains, delta);
 		}
 		if (m_XTerrainGen < m_SizeTerrain && m_YTerrainGen < m_SizeTerrain) {
-			unsigned int seed = 100312414141;
+			unsigned int seed = 1000000000;
 			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(m_XTerrainGen, m_YTerrainGen), isServer, seed));
 
 			m_XTerrainGen++;

@@ -21,7 +21,7 @@ public:
 	~Game();
 private:
 	virtual void Render() override;
-	virtual void Update() override;
+	virtual void Update(float delta) override;
 	virtual void Tick() override;
 };
 

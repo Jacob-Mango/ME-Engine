@@ -11,9 +11,6 @@
     <Filter Include="Level">
       <UniqueIdentifier>{5c74f5d7-b490-4de6-8d4e-3a1a67d44b87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics">
-      <UniqueIdentifier>{94652665-409a-4722-92c3-1bdf44011606}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{c588a7cf-b37b-4cc2-b3cd-7b012ea71b23}</UniqueIdentifier>
     </Filter>
@@ -25,6 +22,9 @@
     </Filter>
     <Filter Include="Terrain">
       <UniqueIdentifier>{bc7e412c-6449-4ee8-93d0-e207c1652590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{5e132c6b-d929-4226-b750-16a72e27ef36}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,9 +40,6 @@
     </ClInclude>
     <ClInclude Include="Rendering\Model.h">
       <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\Physics.h">
-      <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Level\Level.h">
       <Filter>Level</Filter>
@@ -80,6 +77,12 @@
     <ClInclude Include="Rendering\Texture.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\PhysicsEngine.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">
@@ -90,9 +93,6 @@
     </ClCompile>
     <ClCompile Include="Rendering\Model.cpp">
       <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics\Physics.cpp">
-      <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Level\Level.cpp">
       <Filter>Level</Filter>
@@ -120,6 +120,12 @@
     </ClCompile>
     <ClCompile Include="Rendering\Texture.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsEngine.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsObject.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

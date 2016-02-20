@@ -86,7 +86,8 @@
     <ClInclude Include="Level\Level.h" />
     <ClInclude Include="Network\Network.h" />
     <ClInclude Include="Network\Packet.h" />
-    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\PhysicsEngine.h" />
+    <ClInclude Include="Physics\PhysicsObject.h" />
     <ClInclude Include="Rendering\GUI.h" />
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Model.h" />
@@ -106,7 +107,8 @@
     <ClCompile Include="Level\Level.cpp" />
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Network\Packet.cpp" />
-    <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Physics\PhysicsEngine.cpp" />
+    <ClCompile Include="Physics\PhysicsObject.cpp" />
     <ClCompile Include="Rendering\GUI.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />

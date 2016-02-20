@@ -1,8 +1,10 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include "Rendering\Rendering.h"
 
-#include "Physics\Physics.h"
 #include "Level\Level.h"
 #include "Network\Network.h"
 #include "Network\Packet.h"
@@ -43,22 +45,28 @@ protected:
 		float t = 0.0f;
 		float updateTimer = 0.0f;
 		float updateTick = 1.0f / 30.0f;
+
+		float delta = 1.0f;
+
 		unsigned int frames = 0;
 		unsigned int updates = 0;
+
 		while (m_CanLoop) {
 			if (m_IsServer == false) {
 				m_CanLoop = m_RenderModule->ShouldClose() == false;
-			}
-
+			}			
+			
 			if (timer.elapsed() - updateTimer > updateTick) {
 				updates++;
 				updateTimer += updateTick;
-				Update();
+				Update(delta);
 			}
+
 			if (m_IsServer == false) {
 				Render();
 				frames++;
 			}
+
 			if (timer.elapsed() - t > 1.0f) {
 				t += 1.0f;
 				m_FramesPerSecond = frames;
@@ -71,6 +79,6 @@ protected:
 	}
 
 	virtual void Render() {}
-	virtual void Update() {}
+	virtual void Update(float delta) {}
 	virtual void Tick() {}
 };

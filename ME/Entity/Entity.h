@@ -32,7 +32,7 @@ public:
 	Entity(glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, bool canMove, float speed);
 	~Entity();
 
-	int Update(std::vector<Terrain::Terrain*> terrains);
+	int Update(std::vector<Terrain::Terrain*> terrains, float delta);
 	int Tick();
 
 	unsigned int GetEntityID() {

@@ -13,6 +13,6 @@ public:
 	Server(const char* title);
 	~Server();
 private:
-	virtual void Update() override;
+	virtual void Update(float delta) override;
 	virtual void Tick() override;
 };

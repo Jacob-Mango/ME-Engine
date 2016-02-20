@@ -18,9 +18,9 @@ Server::~Server() {
 
 }
 
-void Server::Update() {
+void Server::Update(float delta) {
 	m_Packet->SendOnUpdate();
-	m_Level->Update(m_IsServer);
+	m_Level->Update(m_IsServer, delta);
 }
 
 void Server::Tick() {

@@ -73,7 +73,7 @@ void Game::Render() {
 	
 }
 
-void Game::Update() {
+void Game::Update(float delta) {
 	if (m_WaitingForLogin == false && m_Loading == false) {
 		if (m_RenderModule->IsKeyPressed(GLFW_KEY_ESCAPE)) m_RenderModule->SetCursor(!m_RenderModule->IsCursorFocused());
 
@@ -148,7 +148,7 @@ void Game::Update() {
 		netSend << ((control.x < 0) ? "" : "0") << control.x << "L" << ((control.y < 0) ? "" : "0") << control.y << "L" << ((control.z < 0) ? "" : "0") << control.z << "L" << control.w << "L" << rot.x << "L" << rot.y << "L" << rot.z << "";
 
 		m_Network->Send("127.0.0.1", SERVERPORT, netSend.str().c_str());
-		m_Level->Update(m_IsServer);
+		m_Level->Update(m_IsServer, delta);
 
 		m_RenderModule->GetCamera()->m_Position = -(p->GetPosition() + glm::vec3(0, 1.8f, 0));
 	}

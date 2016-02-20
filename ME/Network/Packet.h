@@ -12,7 +12,7 @@
 #include "..\Entity\Player.h"
 #include "Network.h"
 
-#define DISTANCE(i) (i.x * i.x) + (i.y * i.y) + (i.z * i.z)
+#define DISTANCE(i) (i->x * i->x) + (i->y * i->y) + (i->z * i->z)
 
 namespace Network {
 

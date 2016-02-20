@@ -118,14 +118,23 @@ namespace Network {
 						direction.y -= 1;
 					}
 					c->SetDirection(direction);
-					c->SetRotation(rotation);
+					c->GetRotation()->x = rotation.x;
+					c->GetRotation()->y = 180 - rotation.y;
+					c->GetRotation()->z = rotation.z;
 				} else {
 					glm::vec3 position = glm::vec3(atof(a[0].c_str()), atof(a[1].c_str()), atof(a[2].c_str()));
 					rotation = glm::vec3(atof(a[3].c_str()), atof(a[4].c_str()), atof(a[5].c_str()));
-					bool n = p->VectorIn(c->GetPosition(), position, 2.0f * (1.0f + 1.0f / 5.0f) * sqrtf(DISTANCE(c->GetVelocity())));
+					bool n = p->VectorIn(*c->GetPosition(), position, 2.0f * (1.0f + 1.0f / 5.0f) * sqrtf(DISTANCE(c->GetVelocity())));
 					if (!n) {
-						c->SetPosition(position);
-						c->SetRotation(rotation);
+
+						c->GetRotation()->x = rotation.x;
+						c->GetRotation()->y = 180 - rotation.y;
+						c->GetRotation()->z = rotation.z;
+
+
+						c->GetPosition()->x = position.x;
+						c->GetPosition()->y = position.y;
+						c->GetPosition()->z = position.z;
 					}
 				}
 			}
@@ -148,8 +157,8 @@ namespace Network {
 			for (unsigned int i = 0; i < m_Level->GetPlayers().size(); i++) {
 				std::ostringstream send;
 				send << "02";
-				glm::vec3 pos = m_Level->GetPlayers()[i]->GetPosition();
-				glm::vec3 rot = m_Level->GetPlayers()[i]->GetRotation();
+				glm::vec3 pos = *m_Level->GetPlayers()[i]->GetPosition();
+				glm::vec3 rot = *m_Level->GetPlayers()[i]->GetRotation();
 
 				int code = m_Level->GetPlayers()[i]->GetEntityID();
 				std::ostringstream check;
@@ -164,7 +173,7 @@ namespace Network {
 				send << pos.x << "L" << pos.y << "L" << pos.z << "L" << rot.x << "L" << rot.y << "L" << rot.z;
 
 				for (unsigned int j = 0; j < m_Level->GetPlayers().size(); j++) {
-					if (VectorIn(m_Level->GetPlayers()[j]->GetPosition(), pos, 32)) {
+					if (VectorIn(*m_Level->GetPlayers()[j]->GetPosition(), pos, 32)) {
 						m_Network->Send(m_Level->GetPlayers()[j]->GetAddress(), send.str().c_str());
 					}
 				}

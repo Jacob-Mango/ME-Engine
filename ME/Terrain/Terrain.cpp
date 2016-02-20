@@ -88,7 +88,7 @@ namespace Terrain {
 
 				float terrain = Generator::GeneratedHeight(x + xC, y + yC, seed, 20.0f, 6, 0.1f);
 				float distortian = Generator::GeneratedHeight(x + xC, y + yC, seed, 1.0f, 4, 0.7f);
-				m_HeightMap[x + y * T_VERTEXCOUNT] = (terrain + distortian) / 2.0f;
+				m_HeightMap[x + y * T_VERTEXCOUNT] = 0.0f; // (terrain + distortian) / 2.0f;
 			}
 		}
 

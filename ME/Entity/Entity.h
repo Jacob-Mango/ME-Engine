@@ -9,13 +9,12 @@
 #include <glew\glew.h>
 
 #include "../Terrain/Terrain.h"
+#include "../Physics/PhysicsObject.h"
 
 class Entity {
 private:
-	glm::vec3 m_Position;
-	glm::vec3 m_Velocity;
-	glm::vec3 m_Force;
-	glm::vec3 m_Rotation;
+	PhysicsObject* m_PhysicsObject;
+
 	glm::vec4 m_Direction;
 
 	float m_Speed;
@@ -43,16 +42,20 @@ public:
 		return m_ModelID;
 	}
 
-	glm::vec3 GetPosition() {
-		return m_Position;
+	glm::vec3* GetPosition() {
+		return m_PhysicsObject->GetPosition();
 	}
 
-	glm::vec3 GetVelocity() {
-		return m_Velocity;
+	glm::vec3* GetVelocity() {
+		return m_PhysicsObject->GetVelocity();
 	}
 
-	glm::vec3 GetRotation() {
-		return m_Rotation;
+	glm::vec3* GetRotation() {
+		return m_PhysicsObject->GetRotation();
+	}
+
+	PhysicsObject* GetPhysicsObject() {
+		return m_PhysicsObject;
 	}
 
 	float GetSpeed() {
@@ -61,18 +64,6 @@ public:
 
 	void SetEntityID(unsigned int id) {
 		m_EntityID = id;
-	}
-
-	void SetPosition(glm::vec3 r) {
-		m_Position = r;
-	}
-
-	void SetVelocity(glm::vec3 r) {
-		m_Velocity = r;
-	}
-
-	void SetRotation(glm::vec3 r) {
-		m_Rotation = r;
 	}
 
 	void SetDirection(glm::vec4 r) {

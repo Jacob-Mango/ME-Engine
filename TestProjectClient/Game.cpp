@@ -131,7 +131,9 @@ void Game::Update(float delta) {
 		glm::vec3 rot = m_RenderModule->GetCamera()->m_Rotation;
 
 		p->SetDirection(direction);
-		p->SetRotation(glm::vec3(rot.x, 180 - rot.y, rot.z));
+		p->GetRotation()->x = rot.x;
+		p->GetRotation()->y = 180 - rot.y;
+		p->GetRotation()->z = rot.z;
 
 		std::ostringstream netSend;
 		netSend << "02";
@@ -150,7 +152,7 @@ void Game::Update(float delta) {
 		m_Network->Send("127.0.0.1", SERVERPORT, netSend.str().c_str());
 		m_Level->Update(m_IsServer, delta);
 
-		m_RenderModule->GetCamera()->m_Position = -(p->GetPosition() + glm::vec3(0, 1.8f, 0));
+		m_RenderModule->GetCamera()->m_Position = -(*p->GetPosition() + glm::vec3(0, 1.8f, 0));
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "../Terrain/Terrain.h"
 #include "../Rendering/Rendering.h"
 #include "../Entity/Player.h"
+#include "../Physics/PhysicsEngine.h"
 
 namespace Level {
 	class Level {
@@ -21,6 +22,8 @@ namespace Level {
 		int m_SizeTerrain = 8;
 		int m_XTerrainGen = 0;
 		int m_YTerrainGen = 0;
+
+		PhysicsEngine m_PhysicsEngine;
 	public:
 		Level();
 		~Level();

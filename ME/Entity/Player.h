@@ -12,8 +12,8 @@ private:
 
 	sockaddr_in m_Address;
 public:
-	Player(const char* username, int entityID);
-	Player(sockaddr_in add, const char* username, int entityID);
+	Player(PhysicsEngine* phys, const char* username, int entityID);
+	Player(PhysicsEngine* phys, sockaddr_in add, const char* username, int entityID);
 	~Player();
 
 	std::string GetUsername() {

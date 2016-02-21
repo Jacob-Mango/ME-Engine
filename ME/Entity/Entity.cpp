@@ -1,21 +1,12 @@
 #include "Entity.h"
 
-Entity::Entity(GLuint modelID, unsigned int entityID, bool canMove, float speed) : m_ModelID(modelID), m_EntityID(entityID), m_CanMove(canMove), m_Speed(speed) {
-	m_PhysicsObject = new PhysicsObject();
+Entity::Entity(PhysicsEngine* physEngine, GLuint modelID, unsigned int entityID) : m_ModelID(modelID), m_EntityID(entityID) {
+	m_RigidBody = physEngine->CreateSphere(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), 1.0f, 1.0f);
 	m_Direction = glm::vec4(0);
 }
 
-Entity::Entity(glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, bool canMove, float speed) : m_ModelID(modelID), m_EntityID(entityID), m_CanMove(canMove), m_Speed(speed) {
-	m_PhysicsObject = new PhysicsObject();
-
-	m_PhysicsObject->GetPosition()->x = position.x;
-	m_PhysicsObject->GetPosition()->y = position.x;
-	m_PhysicsObject->GetPosition()->z = position.x;
-
-	m_PhysicsObject->GetRotation()->x = rotation.x;
-	m_PhysicsObject->GetRotation()->y = rotation.x;
-	m_PhysicsObject->GetRotation()->z = rotation.x;
-
+Entity::Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID) : m_ModelID(modelID), m_EntityID(entityID) {
+	m_RigidBody = physEngine->CreateSphere(position, rotation, 1.0f, 1.0f);
 	m_Direction = glm::vec4(0);
 }
 
@@ -24,26 +15,15 @@ Entity::~Entity() {
 }
 
 int Entity::Update(std::vector<Terrain::Terrain*> terrains, float delta) {
-	m_Speed = 5.0f / 30.0f;
-	m_PhysicsObject->GetVelocity()->x += m_Direction.x * m_Speed;
-	m_PhysicsObject->GetVelocity()->z += m_Direction.z * m_Speed;
+	float speed = 10.0f;
+	float xc = m_Direction.x * speed;
+	float zc = m_Direction.z * speed;
 
-	if (m_CanJump == true) {
-		if (m_Direction.y == 1.0f) {
-			m_InJump = true;
-			m_CanJump = false;
-		}
-	}
+	float yc = (m_Direction.y == 1.0f) ? 1.0f : 0.0f;
+	
+	m_RigidBody->applyForce(btVector3(xc, yc, zc), btVector3(0, 0, 0));
 
-	if (m_InJump == true) {
-		float jumpPower = 1.0f;
-		m_PhysicsObject->GetVelocity()->y += jumpPower / 30.0f;
-		m_InJump = false;
-		m_CanJump = true;
-	}
-
-	printf("Velocity %d , %d , %d \n", m_Direction.x, m_Direction.y, m_Direction.z);
-
+	m_Direction = glm::vec4(0, 0, 0, 0);
 	return 0;
 }
 

@@ -19,5 +19,5 @@ void main() {
 
 	outData.position = (model * vec4(position, 1.0)).xyz;
 	outData.uv = uv;
-	outData.normal = normal;
+	outData.normal = normalize(vec3(model * vec4(normal, 0.0)));
 }

@@ -59,7 +59,7 @@ namespace Terrain {
 
 	}
 
-	Terrain::Terrain(glm::vec2 relPos, bool isServer, float heightMap[T_VERTEXCOUNT * T_VERTEXCOUNT]) {
+	Terrain::Terrain(PhysicsEngine* phys, glm::vec2 relPos, bool isServer, float heightMap[T_VERTEXCOUNT * T_VERTEXCOUNT]) {
 		m_Position = glm::vec3(relPos.x, 0.0, relPos.y) * glm::vec3(T_SIZE);
 		m_RelativePosition = relPos;
 
@@ -68,13 +68,14 @@ namespace Terrain {
 			m_HeightMap[i] = heightMap[i];
 		}
 		
+		phys->CreateTerrainMap(m_Position, m_HeightMap);
 
 		if (!isServer) {
 			CreateModels();
 		}
 	}
 
-	Terrain::Terrain(glm::vec2 relPos, bool isServer, unsigned long seed) {
+	Terrain::Terrain(PhysicsEngine* phys, glm::vec2 relPos, bool isServer, unsigned long seed) {
 		m_Position = glm::vec3(relPos.x, 0.0, relPos.y) * glm::vec3(T_SIZE);
 		m_RelativePosition = relPos;
 
@@ -91,6 +92,8 @@ namespace Terrain {
 				m_HeightMap[x + y * T_VERTEXCOUNT] = 0.0f; // (terrain + distortian) / 2.0f;
 			}
 		}
+
+		phys->CreateTerrainMap(m_Position, m_HeightMap);
 
 		if (!isServer) {
 			CreateModels();

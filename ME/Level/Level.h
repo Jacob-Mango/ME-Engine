@@ -23,7 +23,7 @@ namespace Level {
 		int m_XTerrainGen = 0;
 		int m_YTerrainGen = 0;
 
-		PhysicsEngine m_PhysicsEngine;
+		PhysicsEngine* m_PhysicsEngine;
 	public:
 		Level();
 		~Level();
@@ -44,6 +44,10 @@ namespace Level {
 
 		std::vector<Terrain::Terrain*> GetTerrainsToRender();
 		float GetHeightUnderPlayer(float x, float z);
+
+		PhysicsEngine* GetPhysicsEngine() {
+			return m_PhysicsEngine;
+		}
 
 		void Render(Rendering::RenderModule* module, int playerID);
 		void Update(bool isServer, float delta);

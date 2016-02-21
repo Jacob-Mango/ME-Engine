@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="test">
+      <UniqueIdentifier>{EF39B05F-C924-3942-8F75-2B69D976DF0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\collision">
+      <UniqueIdentifier>{B666C89B-EF75-5345-8E1C-FBCE5A95D9FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{F24FA920-5359-654F-8EE5-0926D8C8B8C1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletCollision">
+      <UniqueIdentifier>{D5CD4B9C-24B2-F64E-A00F-25A092394ACF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletCollision\NarrowPhaseCollision">
+      <UniqueIdentifier>{99E4E189-4663-3540-974C-141AD50FFB7C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletCollision\CollisionShapes">
+      <UniqueIdentifier>{F8D153EB-F240-EA42-95B3-3513C26BA836}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\test\collision\btDistanceInfo.h">
+      <Filter>test\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\test\collision\SphereSphereCollision.h">
+      <Filter>test\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BulletCollision\NarrowPhaseCollision\btVoronoiSimplexSolver.h">
+      <Filter>src\BulletCollision\NarrowPhaseCollision</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\test\collision\main.cpp">
+      <Filter>test\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\NarrowPhaseCollision\btVoronoiSimplexSolver.cpp">
+      <Filter>src\BulletCollision\NarrowPhaseCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\CollisionShapes\btSphereShape.cpp">
+      <Filter>src\BulletCollision\CollisionShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\CollisionShapes\btMultiSphereShape.cpp">
+      <Filter>src\BulletCollision\CollisionShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\CollisionShapes\btPolyhedralConvexShape.cpp">
+      <Filter>src\BulletCollision\CollisionShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\CollisionShapes\btConvexShape.cpp">
+      <Filter>src\BulletCollision\CollisionShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\CollisionShapes\btConvexInternalShape.cpp">
+      <Filter>src\BulletCollision\CollisionShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\CollisionShapes\btCollisionShape.cpp">
+      <Filter>src\BulletCollision\CollisionShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletCollision\CollisionShapes\btConvexPolyhedron.cpp">
+      <Filter>src\BulletCollision\CollisionShapes</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

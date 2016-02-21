@@ -11,6 +11,7 @@
 #include <GLFW\glfw3.h>
 
 #include "..\Rendering\Model.h"
+#include "../Physics/PhysicsEngine.h"
 
 #include <stdlib.h>
 
@@ -32,8 +33,8 @@ namespace Terrain {
 		glm::vec3 m_Position;
 		glm::vec2 m_RelativePosition;
 	public:
-		Terrain(glm::vec2 relPos, bool isServer, float heightMap[T_VERTEXCOUNT * T_VERTEXCOUNT]);
-		Terrain(glm::vec2 relPos, bool isServer, unsigned long seed);
+		Terrain(PhysicsEngine* phys, glm::vec2 relPos, bool isServer, float heightMap[T_VERTEXCOUNT * T_VERTEXCOUNT]);
+		Terrain(PhysicsEngine* phys, glm::vec2 relPos, bool isServer, unsigned long seed);
 		~Terrain();
 
 		glm::vec3 GetPosition() {

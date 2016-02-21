@@ -22,7 +22,7 @@ void Game::Render() {
 
 			if (!recv.compare(0, 2, "00")) {
 				m_MainPlayerID = atoi(std::string(buffer).substr(2, 6).c_str());
-				m_Level->AddPlayer(new Player(from, username, m_MainPlayerID));
+				m_Level->AddPlayer(new Player(m_Level->GetPhysicsEngine(), from, username, m_MainPlayerID));
 				m_Packet = new Network::Packet(m_Network, m_Level);
 				m_WaitingForLogin = false;
 				m_Loading = false;
@@ -131,9 +131,11 @@ void Game::Update(float delta) {
 		glm::vec3 rot = m_RenderModule->GetCamera()->m_Rotation;
 
 		p->SetDirection(direction);
-		p->GetRotation()->x = rot.x;
-		p->GetRotation()->y = 180 - rot.y;
-		p->GetRotation()->z = rot.z;
+
+
+		// p->GetRotation()->x = rot.x;
+		// p->GetRotation()->y = 180 - rot.y;
+		// p->GetRotation()->z = rot.z;
 
 		std::ostringstream netSend;
 		netSend << "02";
@@ -152,7 +154,7 @@ void Game::Update(float delta) {
 		m_Network->Send("127.0.0.1", SERVERPORT, netSend.str().c_str());
 		m_Level->Update(m_IsServer, delta);
 
-		m_RenderModule->GetCamera()->m_Position = -(*p->GetPosition() + glm::vec3(0, 1.8f, 0));
+		m_RenderModule->GetCamera()->m_Position = -(p->GetPosition() + glm::vec3(0, 1.8f, 0));
 	}
 }
 

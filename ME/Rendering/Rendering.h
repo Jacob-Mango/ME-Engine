@@ -82,7 +82,7 @@ namespace Rendering {
 		int AddTexture(const char* source);
 
 		int AddModelToRender(int id, glm::mat4 trans);
-		int AddModelToRender(int id, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
+		int AddModelToRender(int id, glm::vec3 position, glm::quat rotation, glm::vec3 scale);
 
 		int PrepareRender();
 		int RenderWorld(std::vector<Terrain::Terrain*> m_Terrains);

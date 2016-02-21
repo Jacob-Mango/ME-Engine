@@ -3,13 +3,13 @@
 namespace Level {
 
 	Level::Level() {
+		m_PhysicsEngine = new PhysicsEngine();
 	}
 	
 	Level::~Level() {
 	}
 
 	void Level::AddPlayer(Player* p) {
-		m_PhysicsEngine.AddObject(p->GetPhysicsObject());
 		m_Players.push_back(p);
 	}
 
@@ -38,7 +38,6 @@ namespace Level {
 	}
 
 	void Level::AddEntity(Entity* e) {
-		m_PhysicsEngine.AddObject(e->GetPhysicsObject());
 		m_Entities.push_back(e);
 	}
 
@@ -89,10 +88,10 @@ namespace Level {
 	void Level::Render(Rendering::RenderModule* module, int playerID) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
 			if (m_Players[i]->GetEntityID() == playerID) continue;
-			module->AddModelToRender(m_Players[i]->GetModelID(), *m_Players[i]->GetPosition(), *m_Players[i]->GetRotation(), glm::vec3(1.0f));
+			module->AddModelToRender(m_Players[i]->GetModelID(), m_Players[i]->GetPosition(), m_Players[i]->GetRotation(), glm::vec3(1.0f));
 		}
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
-			module->AddModelToRender(m_Entities[i]->GetModelID(), *m_Entities[i]->GetPosition(), *m_Entities[i]->GetRotation(), glm::vec3(1.0f));
+			module->AddModelToRender(m_Entities[i]->GetModelID(), m_Entities[i]->GetPosition(), m_Entities[i]->GetRotation(), glm::vec3(1.0f));
 		}
 	}
 
@@ -105,7 +104,7 @@ namespace Level {
 		}
 		if (m_XTerrainGen < m_SizeTerrain && m_YTerrainGen < m_SizeTerrain) {
 			unsigned int seed = 1000000000;
-			m_Terrains.push_back(new Terrain::Terrain(glm::vec2(m_XTerrainGen, m_YTerrainGen), isServer, seed));
+			m_Terrains.push_back(new Terrain::Terrain(m_PhysicsEngine, glm::vec2(m_XTerrainGen, m_YTerrainGen), isServer, seed));
 
 			m_XTerrainGen++;
 
@@ -114,7 +113,7 @@ namespace Level {
 				m_YTerrainGen++;
 			}
 		}
-		m_PhysicsEngine.Simulate(delta);
+		m_PhysicsEngine->Simulate(delta);
 	}
 
 	void Level::Tick(bool isServer) {

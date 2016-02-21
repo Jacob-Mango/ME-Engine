@@ -305,16 +305,13 @@ namespace Rendering {
 		return 0;
 	}
 
-	int RenderModule::AddModelToRender(int id, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) {
-		glm::mat4 result = glm::mat4(1.0);
+	int RenderModule::AddModelToRender(int id, glm::vec3 position, glm::quat rotation, glm::vec3 scale) {
+		glm::mat4 identity = glm::mat4(1.0);
+		glm::mat4 translation = glm::translate(identity, position);
+		glm::mat4 rot = glm::mat4_cast(rotation);
+		glm::mat4 scal = glm::scale(identity, scale);
 
-		result = glm::translate(result, position);
-		result = glm::rotate(result, ToRadians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		result = glm::rotate(result, ToRadians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		result = glm::rotate(result, ToRadians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-		result = glm::scale(result, scale);
-
-		return AddModelToRender(id, result);
+		return AddModelToRender(id, translation * rot * scal);
 	}
 
 	glm::vec2 RenderModule::GetWindowSize() {

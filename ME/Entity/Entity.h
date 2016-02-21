@@ -4,31 +4,27 @@
 #include <string>
 #include <iostream>
 
+#include <bullet\\src\\btBulletDynamicsCommon.h>
+
 #include <glm\glm.hpp>
 
 #include <glew\glew.h>
 
 #include "../Terrain/Terrain.h"
-#include "../Physics/PhysicsObject.h"
+
+#include "../Physics/PhysicsEngine.h"
 
 class Entity {
 private:
-	PhysicsObject* m_PhysicsObject;
+	btRigidBody* m_RigidBody;
 
 	glm::vec4 m_Direction;
 
-	float m_Speed;
-
 	GLuint m_ModelID;
 	unsigned int m_EntityID;
-
-	int m_AirTime = 0;
-	bool m_CanMove = false;
-	bool m_InJump = false;
-	bool m_CanJump = true;
 public: 
-	Entity(GLuint modelID, unsigned int entityID, bool canMove, float speed);
-	Entity(glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, bool canMove, float speed);
+	Entity(PhysicsEngine* physEngine, GLuint modelID, unsigned int entityID);
+	Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID);
 	~Entity();
 
 	int Update(std::vector<Terrain::Terrain*> terrains, float delta);
@@ -42,24 +38,22 @@ public:
 		return m_ModelID;
 	}
 
-	glm::vec3* GetPosition() {
-		return m_PhysicsObject->GetPosition();
+	glm::vec3 GetPosition() {
+		btTransform t;
+		m_RigidBody->getMotionState()->getWorldTransform(t);
+		btVector3 i = t.getOrigin();
+		return glm::vec3(i.getX(), i.getY(), i.getZ()); ;
 	}
 
-	glm::vec3* GetVelocity() {
-		return m_PhysicsObject->GetVelocity();
+	glm::quat GetRotation() {
+		btTransform t;
+		m_RigidBody->getMotionState()->getWorldTransform(t);
+		btQuaternion i = t.getRotation();
+		return glm::quat(i.getW(), i.getX(), i.getY(), i.getZ());;
 	}
 
-	glm::vec3* GetRotation() {
-		return m_PhysicsObject->GetRotation();
-	}
-
-	PhysicsObject* GetPhysicsObject() {
-		return m_PhysicsObject;
-	}
-
-	float GetSpeed() {
-		return m_Speed;
+	btRigidBody* GetPhysicsObject() {
+		return m_RigidBody;
 	}
 
 	void SetEntityID(unsigned int id) {

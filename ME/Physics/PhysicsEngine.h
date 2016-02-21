@@ -15,9 +15,9 @@ private:
 
 	std::vector<btRigidBody*> m_RigidedBodies;
 
-	float m_DefaultFriction = 20.0f;
-	float m_DefaultRollingFriction = 20.0f;
-	float m_DefaultRestitution = 0.5f;
+	float m_DefaultFriction = 5.0f;
+	float m_DefaultRollingFriction = 5.0f;
+	float m_DefaultRestitution = 0.75f;
 public:
 	PhysicsEngine();
 	~PhysicsEngine();

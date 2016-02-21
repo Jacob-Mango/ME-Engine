@@ -87,7 +87,7 @@ namespace Level {
 
 	void Level::Render(Rendering::RenderModule* module, int playerID) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
-			if (m_Players[i]->GetEntityID() == playerID) continue;
+			// if (m_Players[i]->GetEntityID() == playerID) continue;
 			module->AddModelToRender(m_Players[i]->GetModelID(), m_Players[i]->GetPosition(), m_Players[i]->GetRotation(), glm::vec3(1.0f));
 		}
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
@@ -103,7 +103,7 @@ namespace Level {
 			m_Entities[i]->Update(m_Terrains, delta);
 		}
 		if (m_XTerrainGen < m_SizeTerrain && m_YTerrainGen < m_SizeTerrain) {
-			unsigned int seed = 1000000000;
+			unsigned int seed = (unsigned int)(1111111111 * 1.51332512f);
 			m_Terrains.push_back(new Terrain::Terrain(m_PhysicsEngine, glm::vec2(m_XTerrainGen, m_YTerrainGen), isServer, seed));
 
 			m_XTerrainGen++;

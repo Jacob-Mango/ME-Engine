@@ -129,9 +129,9 @@ btRigidBody* PhysicsEngine::CreateTerrainMap(glm::vec3 position, float heights[]
 	btMotionState* motion = new btDefaultMotionState(t);
 	btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
 	btRigidBody* body = new btRigidBody(info);
-	body->setFriction(m_DefaultFriction);
-	body->setRollingFriction(m_DefaultRollingFriction);
-	body->setRestitution(m_DefaultRestitution);
+	body->setFriction(10.0f);
+	// body->setRollingFriction(m_DefaultRollingFriction);
+	body->setRestitution(0.5f);
 	m_World->addRigidBody(body);
 	m_RigidedBodies.push_back(body);
 	return body;

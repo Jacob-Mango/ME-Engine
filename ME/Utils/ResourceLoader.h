@@ -50,7 +50,7 @@ int CheckHowManyModelsToLoad() {
 }
 public:
 bool LoadModels(Rendering::RenderModule* module) {
-	if (m_MaxModels < 0) m_MaxModels = 2;// CheckHowManyModelsToLoad();
+	if (m_MaxModels < 0) m_MaxModels = 3;// CheckHowManyModelsToLoad();
 
 	std::ostringstream o;
 	o << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".obj";
@@ -72,6 +72,8 @@ bool LoadModels(Rendering::RenderModule* module) {
 
 bool LoadLevel(Level::Level* level) {
 	level->AddEntity(new Entity(level->GetPhysicsEngine(), glm::vec3(10, 10, 10), glm::vec3(0, 0, 0), 1, 0));
+
+	level->AddEntity(new Entity(level->GetPhysicsEngine(), glm::vec3(20, 10, 20), glm::vec3(45, 45, 0), 2, 0));
 
 	return true;
 }

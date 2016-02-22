@@ -55,7 +55,7 @@ namespace Network {
 					}
 					netSend << user << "";
 					p->SendToAll(netSend.str().c_str());
-					p->m_Level->AddPlayer(new Player(p->m_Level->GetPhysicsEngine(), from, user, code));
+					p->m_Level->AddPlayer(new Player(p->m_Level->GetPhysicsEngine(), &from, user, code));
 				} else {
 					code = atoi(recv.substr(2, 6).c_str());
 					std::cout << "Maybe? " << code << " ";
@@ -148,7 +148,7 @@ namespace Network {
 
 	void Packet::SendToAll(const char* buffer) {
 		for (unsigned int i = 0; i < m_Level->GetPlayers().size(); i++) {
-			m_Network->Send(m_Level->GetPlayers()[i]->GetAddress(), buffer);
+			m_Network->Send(*m_Level->GetPlayers()[i]->GetAddress(), buffer);
 		}
 	}
 
@@ -178,7 +178,7 @@ namespace Network {
 
 				for (unsigned int j = 0; j < m_Level->GetPlayers().size(); j++) {
 					if (VectorIn(m_Level->GetPlayers()[j]->GetPosition(), pos, 32)) {
-						m_Network->Send(m_Level->GetPlayers()[j]->GetAddress(), send.str().c_str());
+						m_Network->Send(*m_Level->GetPlayers()[j]->GetAddress(), send.str().c_str());
 					}
 				}
 			}

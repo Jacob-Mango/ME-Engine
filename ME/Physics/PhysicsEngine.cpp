@@ -121,6 +121,31 @@ btRigidBody* PhysicsEngine::CreateBox(glm::vec3 position, glm::vec3 rotation, fl
 	return body;
 }
 
+btRigidBody* PhysicsEngine::CreateCapsule(glm::vec3 position, glm::vec3 rotation, float radius, float height, float mass) {
+	btTransform t;
+	t.setIdentity();
+	t.setOrigin(btVector3(position.x, position.y, position.z));
+	btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
+	btQuaternion qy = btQuaternion(btVector3(0, 1, 0), rotation.y);
+	btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
+	t.setRotation(qx);
+	btCapsuleShape* shape = new btCapsuleShape(radius / 2.0f, height / 2.0f);
+	btVector3 inertia(0, 0, 0);
+	if (mass != 0.0)
+		shape->calculateLocalInertia(mass, inertia);
+
+	btMotionState* motion = new btDefaultMotionState(t);
+	btRigidBody::btRigidBodyConstructionInfo info(mass, motion, shape, inertia);
+	btRigidBody* body = new btRigidBody(info);
+	body->setFriction(m_DefaultFriction);
+	body->setRollingFriction(m_DefaultRollingFriction);
+	body->setRestitution(m_DefaultRestitution);
+	m_World->addRigidBody(body);
+	m_RigidedBodies.push_back(body);
+	return body;
+}
+
+
 btRigidBody* PhysicsEngine::CreateTerrainMap(glm::vec3 position, float heights[]) {
 	btTransform t;
 	t.setIdentity();
@@ -129,8 +154,8 @@ btRigidBody* PhysicsEngine::CreateTerrainMap(glm::vec3 position, float heights[]
 	btMotionState* motion = new btDefaultMotionState(t);
 	btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
 	btRigidBody* body = new btRigidBody(info);
-	body->setFriction(10.0f);
-	// body->setRollingFriction(m_DefaultRollingFriction);
+	body->setFriction(1.0f);
+	body->setRollingFriction(1.0f);
 	body->setRestitution(0.5f);
 	m_World->addRigidBody(body);
 	m_RigidedBodies.push_back(body);

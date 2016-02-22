@@ -80,6 +80,12 @@
     <ClInclude Include="Physics\PhysicsEngine.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\Controller.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\ControllerInterface.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">
@@ -119,6 +125,9 @@
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Physics\PhysicsEngine.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Controller.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>

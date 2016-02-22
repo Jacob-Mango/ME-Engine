@@ -15,8 +15,8 @@ private:
 
 	std::vector<btRigidBody*> m_RigidedBodies;
 
-	float m_DefaultFriction = 5.0f;
-	float m_DefaultRollingFriction = 5.0f;
+	float m_DefaultFriction = 1.0f;
+	float m_DefaultRollingFriction = 1.0f;
 	float m_DefaultRestitution = 0.75f;
 public:
 	PhysicsEngine();
@@ -26,6 +26,7 @@ public:
 	btRigidBody* CreateCylinder(glm::vec3 position, glm::vec3 rotation, float radius, float height, float mass);
 	btRigidBody* CreateCone(glm::vec3 position, glm::vec3 rotation, float radius, float height, float mass);
 	btRigidBody* CreateBox(glm::vec3 position, glm::vec3 rotation, float width, float height, float depth, float mass);
+	btRigidBody* CreateCapsule(glm::vec3 position, glm::vec3 rotation, float radius, float height, float mass);
 
 	btRigidBody* CreateTerrainMap(glm::vec3 position, float heights[]);
 

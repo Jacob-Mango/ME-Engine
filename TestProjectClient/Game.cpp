@@ -22,7 +22,7 @@ void Game::Render() {
 
 			if (!recv.compare(0, 2, "00")) {
 				m_MainPlayerID = atoi(std::string(buffer).substr(2, 6).c_str());
-				m_Level->AddPlayer(new Player(m_Level->GetPhysicsEngine(), from, username, m_MainPlayerID));
+				m_Level->AddPlayer(new Player(m_Level->GetPhysicsEngine(), &from, username, m_MainPlayerID));
 				m_Packet = new Network::Packet(m_Network, m_Level);
 				m_WaitingForLogin = false;
 				m_Loading = false;

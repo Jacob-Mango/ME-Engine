@@ -22,6 +22,8 @@ private:
 
 	GLuint m_ModelID;
 	unsigned int m_EntityID;
+
+	int m_JumpTime = 0;
 public: 
 	Entity(PhysicsEngine* physEngine, GLuint modelID, unsigned int entityID);
 	Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID);

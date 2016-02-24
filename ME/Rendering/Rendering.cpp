@@ -3,6 +3,8 @@
 namespace Rendering {
 	
 	int RenderModule::MakeWindow(int width, int height, const char* title) {
+		printf("Gets here 1");
+
 		m_Title = title;
 		m_Width = width;
 		m_Height = height;
@@ -11,10 +13,22 @@ namespace Rendering {
 		if (!glfwInit()) {
 			return -1;
 		}
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+
+		printf("Gets here 2");
+
 		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
 		if (!m_Window) {
 			return -2;
 		}
+
+
+		printf("Gets here 3");
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetFramebufferSizeCallback(m_Window, window_resize);
@@ -25,12 +39,18 @@ namespace Rendering {
 		glfwSetWindowFocusCallback(m_Window, window_loss_focus_callback);
 		glfwSwapInterval(0);
 
+		printf("Gets here 4");
+		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK) {
 			return -3;
 		}
+		printf("Gets here 5");
 
 		m_WorldShader = new Shader(ReadFile("Resources\\Shaders\\World.vs").c_str(), ReadFile("Resources\\Shaders\\World.fs").c_str());
+		m_PPShader = new Shader(ReadFile("Resources\\Shaders\\PP.vs").c_str(), ReadFile("Resources\\Shaders\\PP.fs").c_str());
 		m_GUIShader = new Shader(ReadFile("Resources\\Shaders\\GUI.vs").c_str(), ReadFile("Resources\\Shaders\\GUI.fs").c_str());
+
+		m_PPBuffer = new FrameBuffer(1280, 720);
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -41,7 +61,8 @@ namespace Rendering {
 		glEnable(GL_FRAMEBUFFER_SRGB);
 		glEnable(GL_MULTISAMPLE);
 
-		
+
+		printf("Gets here 6");
 		m_GUI = new GUI(glm::vec3(0), glm::vec3(0));
 
 		glGenVertexArrays(1, &m_SquareModelID);
@@ -123,6 +144,8 @@ namespace Rendering {
 		RenderModule* win = (RenderModule*)glfwGetWindowUserPointer(window);
 		win->m_Width = width;
 		win->m_Height = height;
+
+		win->m_PPBuffer = new FrameBuffer(width, height);
 	}
 
 	void window_close_callback(GLFWwindow *window) {
@@ -163,6 +186,7 @@ namespace Rendering {
 	}
 
 	int RenderModule::RenderWorld(std::vector<Terrain::Terrain*> m_Terrains) {
+		// m_PPBuffer->Bind();
 		m_WorldShader->Start();
 
 		glm::mat4 view = glm::mat4(1.0f);
@@ -210,10 +234,34 @@ namespace Rendering {
 		glBindVertexArray(0);
 
 		m_WorldShader->Stop();
+		m_PPBuffer->UnBind(m_Width, m_Height);
 		return 0;
 	}
 
 	int RenderModule::RenderPostProccessEffects() {
+		m_PPShader->Start();
+
+		float aspect = (float)m_Width / (float)m_Height;
+		m_PPShader->SetUniformMat4("proj", glm::ortho(-aspect, aspect, -1.0f, 1.0f, 1.0f, -1.0f));
+
+
+		glBindVertexArray(m_SquareModelID);
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+
+		glm::mat4 m = glm::mat4(1.0);
+		glm::translate(m, glm::vec3(-aspect, 0, 0));
+		glm::scale(m, glm::vec3(1 + aspect, 2, 1));
+		m_PPShader->SetUniformMat4("model", m);
+
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE0, m_PPBuffer->m_Texture);
+
+		// glDrawArrays(GL_QUADS, 0, m_SquareModelSize);
+		
+		glBindVertexArray(0);
+		m_PPShader->Stop();
 		return 0;
 	}
 

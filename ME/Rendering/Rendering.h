@@ -21,6 +21,7 @@
 #include "Model.h"
 #include "Texture.h"
 #include "GUI.h"
+#include "FrameBuffer.h"
 
 #include "..\Terrain\Terrain.h"
 #include "..\Utils\File.h"
@@ -68,6 +69,9 @@ namespace Rendering {
 		Shader* m_WorldShader; 
 		Shader* m_PPShader;
 		Shader* m_GUIShader;
+
+		FrameBuffer* m_PPBuffer;
+
 		Camera* m_Camera;
 
 		Texture* m_TerrainTexture;

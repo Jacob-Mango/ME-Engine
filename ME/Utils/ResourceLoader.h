@@ -73,7 +73,11 @@ bool LoadModels(Rendering::RenderModule* module) {
 bool LoadLevel(Level::Level* level) {
 	level->AddEntity(new Entity(level->GetPhysicsEngine(), glm::vec3(10, 10, 10), glm::vec3(0, 0, 0), 1, 0));
 
-	level->AddEntity(new Entity(level->GetPhysicsEngine(), glm::vec3(20, 10, 20), glm::vec3(45, 45, 0), 2, 0));
+	// for (int x = 0; x < 40; x++) {
+		//for (int y = 0; y < 40; y++) {
+			// level->AddEntity(new Entity(level->GetPhysicsEngine(), glm::vec3(x * 2, x * y, y * 2), glm::vec3(45, 45, 0), 1, 0));
+		//}
+	// }
 
 	return true;
 }

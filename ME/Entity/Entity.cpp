@@ -24,17 +24,30 @@ Entity::~Entity() {
 }
 
 int Entity::Update(std::vector<Terrain::Terrain*> terrains, float delta) {
-	float speed = 0.25f;
+	float speed = 2.0f;
+	if (m_Direction.w == 1.0f) speed = 12.4f;
 	float xc = m_Direction.x * speed;
-	float yc = (m_Direction.y == 1.0f) ? speed : 0.0f;
+
+	if (m_Direction.y == 1.0f && m_JumpTime == 0) m_JumpTime = 1;
+
+	float yc = (m_Direction.y == 1.0f && m_JumpTime < 60) ? 0.2f : 0.0f;
 	float zc = m_Direction.z * speed;
+	
+	if (m_JumpTime > 0) {
+		m_JumpTime++;
+	}
+
+	float epsilon = 0.1f;
+	if (m_RigidBody->getLinearVelocity().getY() < epsilon && -epsilon > m_RigidBody->getLinearVelocity().getY() && m_JumpTime > 65) {
+		m_JumpTime = 0;
+	}
 
 	// m_RigidBody->applyForce(btVector3(xc, yc, zc), btVector3(0, 0, 0));
 
 	btVector3 v = btVector3(xc, yc, zc);
-	v.setX(v.getX() + m_RigidBody->getLinearVelocity().getX());
+	v.setX(v.getX());
 	v.setY(v.getY() + m_RigidBody->getLinearVelocity().getY());
-	v.setZ(v.getZ() + m_RigidBody->getLinearVelocity().getZ());
+	v.setZ(v.getZ());
 	m_RigidBody->setLinearVelocity(v);
 
 

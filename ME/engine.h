@@ -28,6 +28,7 @@ protected:
 		if (m_IsServer == false) {
 			m_RenderModule = new Rendering::RenderModule();
 			int e = m_RenderModule->MakeWindow(1280, 720, title);
+			printf("What is it? %d\n", e);
 			if (e != 0) {
 				exit(e);
 			}
@@ -37,7 +38,6 @@ protected:
 			m_Network = new Network::Network(true);
 			m_Packet = new Network::Packet(m_Network, m_Level);
 		}
-		
 	}
 
 	void Loop() {

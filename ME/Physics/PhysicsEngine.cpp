@@ -1,4 +1,5 @@
 #include "PhysicsEngine.h"
+#include <ctime>
 
 PhysicsEngine::PhysicsEngine() {
 	m_CollisionConfig = new btDefaultCollisionConfiguration();
@@ -163,5 +164,10 @@ btRigidBody* PhysicsEngine::CreateTerrainMap(glm::vec3 position, float heights[]
 }
 
 void PhysicsEngine::Simulate(float delta) {
+	srand(time(NULL));
+	float x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
+	srand(time(NULL));
+	float z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
+	m_World->setGravity(btVector3(x * 10.0f, -9.18f, z * 10.0f));
 	m_World->stepSimulation(1 / 30.0);
 }

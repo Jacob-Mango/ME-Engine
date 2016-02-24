@@ -47,9 +47,6 @@
     <ClInclude Include="Utils\File.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="FrameBuffer.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\Entity.h">
       <Filter>Entity</Filter>
     </ClInclude>
@@ -86,6 +83,9 @@
     <ClInclude Include="Physics\ControllerInterface.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\FrameBuffer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\Rendering.cpp">
@@ -99,9 +99,6 @@
     </ClCompile>
     <ClCompile Include="Level\Level.cpp">
       <Filter>Level</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameBuffer.cpp">
-      <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Entity\Entity.cpp">
       <Filter>Entity</Filter>
@@ -129,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="Physics\Controller.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\FrameBuffer.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

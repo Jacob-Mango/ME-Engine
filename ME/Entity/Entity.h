@@ -29,7 +29,7 @@ public:
 	Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID);
 	~Entity();
 
-	int Update(std::vector<Terrain::Terrain*> terrains, float delta);
+	int Update(std::vector<Terrain::Terrain*> terrains, float delta, bool isServer);
 	int Tick();
 
 	unsigned int GetEntityID() {

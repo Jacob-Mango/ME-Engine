@@ -23,7 +23,7 @@ Entity::~Entity() {
 
 }
 
-int Entity::Update(std::vector<Terrain::Terrain*> terrains, float delta) {
+int Entity::Update(std::vector<Terrain::Terrain*> terrains, float delta, bool isServer) {
 	float speed = 2.0f;
 	if (m_Direction.w == 1.0f) speed = 12.4f;
 	float xc = m_Direction.x * speed;
@@ -42,16 +42,16 @@ int Entity::Update(std::vector<Terrain::Terrain*> terrains, float delta) {
 		m_JumpTime = 0;
 	}
 
-	// m_RigidBody->applyForce(btVector3(xc, yc, zc), btVector3(0, 0, 0));
-
 	btVector3 v = btVector3(xc, yc, zc);
 	v.setX(v.getX());
 	v.setY(v.getY() + m_RigidBody->getLinearVelocity().getY());
 	v.setZ(v.getZ());
-	m_RigidBody->setLinearVelocity(v);
 
-
-
+	//if (isServer) {
+		m_RigidBody->setLinearVelocity(v);
+	//} 
+	//else {
+	//}
 	m_Direction = glm::vec4(0, 0, 0, 0);
 	return 0;
 }

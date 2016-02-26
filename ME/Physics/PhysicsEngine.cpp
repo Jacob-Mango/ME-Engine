@@ -4,7 +4,14 @@
 PhysicsEngine::PhysicsEngine() {
 	m_CollisionConfig = new btDefaultCollisionConfiguration();
 	m_Dispatcher = new btCollisionDispatcher(m_CollisionConfig);
-	m_Broadphase = new btDbvtBroadphase();
+
+	double scene_size = 1000.0;
+	btScalar sscene_size = (btScalar)scene_size;
+	btVector3 worldAabbMin(-sscene_size, -sscene_size, -sscene_size);
+	btVector3 worldAabbMax(sscene_size, sscene_size, sscene_size);
+	//This is one type of broadphase, bullet has others that might be faster depending on the application
+	m_Broadphase = new bt32BitAxisSweep3(worldAabbMin, worldAabbMax, 16000, 0, true);  // true for disabling raycast accelerator
+
 	m_Solver = new btSequentialImpulseConstraintSolver();
 	m_World = new btDiscreteDynamicsWorld(m_Dispatcher, m_Broadphase, m_Solver, m_CollisionConfig);
 	m_World->setGravity(btVector3(0.0f, -9.18f, 0.0f));

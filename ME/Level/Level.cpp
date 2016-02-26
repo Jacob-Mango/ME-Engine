@@ -97,10 +97,10 @@ namespace Level {
 
 	void Level::Update(bool isServer, float delta) {
 		for (unsigned int i = 0; i < m_Players.size(); i++) {
-			m_Players[i]->Update(m_Terrains, delta);
+			m_Players[i]->Update(m_Terrains, delta, isServer);
 		}
 		for (unsigned int i = 0; i < m_Entities.size(); i++) {
-			m_Entities[i]->Update(m_Terrains, delta);
+			m_Entities[i]->Update(m_Terrains, delta, isServer);
 		}
 		if (m_XTerrainGen < m_SizeTerrain && m_YTerrainGen < m_SizeTerrain) {
 			unsigned int seed = (unsigned int)(1111111111 * 1.51332512f);

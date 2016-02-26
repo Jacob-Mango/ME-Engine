@@ -84,6 +84,7 @@ namespace Network {
 	}
 
 	void Network::Send(const std::string& address, unsigned short port, const char* buffer) {
+		printf("Buffer: %d", buffer);
 		sockaddr_in add;
 		add.sin_family = AF_INET;
 		add.sin_addr.s_addr = inet_addr(address.c_str());
@@ -97,6 +98,8 @@ namespace Network {
 	}
 
 	void Network::Send(sockaddr_in add, const char* buffer) {
+		printf("Buffer: %d", buffer);
+		add.sin_family = AF_INET;
 		int ret = sendto(m_Socket, buffer, strlen(buffer), 0, (struct sockaddr*) &add, sizeof(add));
 		if (ret < 0) {
 			m_LastError = -1;

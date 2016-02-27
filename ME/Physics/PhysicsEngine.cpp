@@ -40,7 +40,7 @@ btRigidBody* PhysicsEngine::CreateSphere(glm::vec3 position, glm::vec3 rotation,
 	btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
 	btQuaternion qy = btQuaternion(btVector3(0, 1, 0), rotation.y);
 	btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
-	t.setRotation(qx);
+	t.setRotation(qx * qy * qz);
 	btSphereShape* shape = new btSphereShape(radius);
 	btVector3 inertia(0, 0, 0);
 	if (mass != 0.0)
@@ -63,8 +63,8 @@ btRigidBody* PhysicsEngine::CreateCylinder(glm::vec3 position, glm::vec3 rotatio
 	t.setOrigin(btVector3(position.x, position.y, position.z));
 	btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
 	btQuaternion qy = btQuaternion(btVector3(0, 1, 0), rotation.y);
-	btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
-	t.setRotation(qx);
+	btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z); 
+	t.setRotation(qx * qy * qz);
 	btCylinderShape* shape = new btCylinderShape(btVector3(radius, height / 2.0, radius / 2.0));
 	btVector3 inertia(0, 0, 0);
 	if (mass != 0.0)
@@ -88,7 +88,7 @@ btRigidBody* PhysicsEngine::CreateCone(glm::vec3 position, glm::vec3 rotation, f
 	btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
 	btQuaternion qy = btQuaternion(btVector3(0, 1, 0), rotation.y);
 	btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
-	t.setRotation(qx);
+	t.setRotation(qx * qy * qz);
 	btConeShape* shape = new btConeShape(radius * 2, height);
 	btVector3 inertia(0, 0, 0);
 	if (mass != 0.0)
@@ -112,7 +112,7 @@ btRigidBody* PhysicsEngine::CreateBox(glm::vec3 position, glm::vec3 rotation, fl
 	btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
 	btQuaternion qy = btQuaternion(btVector3(0, 1, 0), rotation.y);
 	btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
-	t.setRotation(qx);
+	t.setRotation(qx * qy * qz);
 	btBoxShape* shape = new btBoxShape(btVector3(width / 2.0, height / 2.0, depth / 2.0));
 	btVector3 inertia(0, 0, 0);
 	if (mass != 0.0)
@@ -136,7 +136,7 @@ btRigidBody* PhysicsEngine::CreateCapsule(glm::vec3 position, glm::vec3 rotation
 	btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
 	btQuaternion qy = btQuaternion(btVector3(0, 1, 0), rotation.y);
 	btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
-	t.setRotation(qx);
+	t.setRotation(qx * qy * qz);
 	btCapsuleShape* shape = new btCapsuleShape(radius / 2.0f, height / 2.0f);
 	btVector3 inertia(0, 0, 0);
 	if (mass != 0.0)

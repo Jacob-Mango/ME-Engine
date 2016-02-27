@@ -119,26 +119,28 @@ namespace Network {
 					}
 					c->SetDirection(direction);
 
-					/*
-					c->GetRotation()->x = rotation.x;
-					c->GetRotation()->y = 180 - rotation.y;
-					c->GetRotation()->z = rotation.z;
-					*/
+					btTransform t;
+					c->GetPhysicsObject()->getMotionState()->getWorldTransform(t);
+
+					btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
+					btQuaternion qy = btQuaternion(btVector3(0, 1, 0), 180 - rotation.y);
+					btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
+					t.setRotation(qx);
+					
 				} else {
 					glm::vec3 position = glm::vec3(atof(a[0].c_str()), atof(a[1].c_str()), atof(a[2].c_str()));
 					rotation = glm::vec3(atof(a[3].c_str()), atof(a[4].c_str()), atof(a[5].c_str()));
 					bool n = p->VectorIn(c->GetPosition(), position, 2.0f);
 					if (!n) {
-						/*
-						c->GetRotation()->x = rotation.x;
-						c->GetRotation()->y = 180 - rotation.y;
-						c->GetRotation()->z = rotation.z;
+						btTransform t;
+						c->GetPhysicsObject()->getMotionState()->getWorldTransform(t);
 
+						btQuaternion qx = btQuaternion(btVector3(1, 0, 0), rotation.x);
+						btQuaternion qy = btQuaternion(btVector3(0, 1, 0), 180 - rotation.y);
+						btQuaternion qz = btQuaternion(btVector3(0, 0, 1), rotation.z);
+						t.setRotation(qx);
 
-						c->GetPosition()->x = position.x;
-						c->GetPosition()->y = position.y;
-						c->GetPosition()->z = position.z;
-						*/
+						t.setOrigin(btVector3(position.x, position.y, position.z));
 					}
 				}
 			}

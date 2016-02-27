@@ -30,17 +30,19 @@ int Entity::Update(std::vector<Terrain::Terrain*> terrains, float delta, bool is
 
 	if (m_Direction.y == 1.0f && m_JumpTime == 0) m_JumpTime = 1;
 
-	float yc = (m_Direction.y == 1.0f && m_JumpTime < 60) ? 0.2f : 0.0f;
+	float yc = (m_JumpTime < 60 && m_JumpTime > 0) ? 0.2f : 0.0f;
 	float zc = m_Direction.z * speed;
 	
 	if (m_JumpTime > 0) {
 		m_JumpTime++;
 	}
 
-	float epsilon = 0.1f;
-	if (m_RigidBody->getLinearVelocity().getY() < epsilon && -epsilon > m_RigidBody->getLinearVelocity().getY() && m_JumpTime > 65) {
-		m_JumpTime = 0;
+	float epsilon = 0.05f;
+	if (m_RigidBody->getLinearVelocity().getY() < epsilon && m_RigidBody->getLinearVelocity().getY() > -epsilon) {
+		if (m_JumpTime >= 60) m_JumpTime = 0;
 	}
+
+	// std::cout << "Jumptime: " << m_JumpTime << " Linear Velocity Y: " <<  m_RigidBody->getLinearVelocity().getY() << std::endl;
 
 	btVector3 v = btVector3(xc, yc, zc);
 	v.setX(v.getX());

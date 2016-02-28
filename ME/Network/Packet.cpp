@@ -130,6 +130,8 @@ namespace Network {
 				} else {
 					glm::vec3 position = glm::vec3(atof(a[0].c_str()), atof(a[1].c_str()), atof(a[2].c_str()));
 					rotation = glm::vec3(atof(a[3].c_str()), atof(a[4].c_str()), atof(a[5].c_str()));
+					//auto i = std::addressof(c);
+					if (!c) continue;
 					bool n = p->VectorIn(c->GetPosition(), position, 2.0f);
 					if (!n) {
 						btTransform t;
@@ -141,6 +143,7 @@ namespace Network {
 						t.setRotation(qx);
 
 						t.setOrigin(btVector3(position.x, position.y, position.z));
+						c->GetPhysicsObject()->setWorldTransform(t);
 					}
 				}
 			}

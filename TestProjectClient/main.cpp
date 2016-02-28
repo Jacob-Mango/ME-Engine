@@ -6,7 +6,9 @@
 #include "Game.h"
 
 int main(void) {
-	Game* g = new Game("TestProjectClient");
+
+	Game* g = new Game("TestProjectClient - Window 1");
 	delete g;
+
 	return 0;
 }

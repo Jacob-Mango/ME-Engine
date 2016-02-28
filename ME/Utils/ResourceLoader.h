@@ -19,7 +19,7 @@ int m_LoadLevelNumber = 0;
 int m_MaxLevels = -1;
 
 int CheckHowManyModelsToLoad() {
-	const TCHAR* parent_path = (const TCHAR*) "Resources\\Data\\";
+	const TCHAR* parent_path = (const TCHAR*) "Resources\\Models\\";
 	size_t len = _tcslen(parent_path);
 	const size_t alloc_len = len + 3;
 	TCHAR* sub_wild = new TCHAR[alloc_len];
@@ -53,11 +53,11 @@ bool LoadModels(Rendering::RenderModule* module) {
 	if (m_MaxModels < 0) m_MaxModels = 3;// CheckHowManyModelsToLoad();
 
 	std::ostringstream o;
-	o << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".obj";
+	o << "Resources\\Models\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".obj";
 	module->AddModel(o.str().c_str());
 
 	std::ostringstream t;
-	t << "Resources\\Data\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".png";
+	t << "Resources\\Models\\" << m_LoadModelNumber << "\\" << m_LoadModelNumber << ".png";
 	module->AddTexture(t.str().c_str());
 
 	// std::ostringstream d;

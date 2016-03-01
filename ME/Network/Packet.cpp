@@ -53,18 +53,18 @@ namespace Network {
 						p->m_Network->Send(from, n.str().c_str());
 
 					}
-					netSend << user << "";
+					netSend << user << "\n";
 					p->SendToAll(netSend.str().c_str());
 					p->m_Level->AddPlayer(new Player(p->m_Level->GetPhysicsEngine(), &from, user, code));
 				} else {
 					code = atoi(recv.substr(2, 6).c_str());
-					std::cout << "Maybe? " << code << " ";
+					std::cout << "Exists? " << code << " \n";
 					if (p->m_Level->GetPlayerLevelForID(code) == -1) {
-						std::cout << "Yes?";
+						std::cout << "Yes? \n";
 						p->m_Level->AddPlayer(new Player(p->m_Level->GetPhysicsEngine(), user, code));
 					}
 					else {
-						std::cout << "No?";
+						std::cout << "No? \n";
 					}
 				}
 			} else if (!recv.compare(0, 2, "01")) {

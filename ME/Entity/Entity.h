@@ -7,12 +7,25 @@
 #include <bullet\\src\\btBulletDynamicsCommon.h>
 
 #include <glm\glm.hpp>
-
 #include <glew\glew.h>
 
 #include "../Terrain/Terrain.h"
-
 #include "../Physics/PhysicsEngine.h"
+
+class Entity;
+
+enum DamageLocation {
+	LARM, RARM, LLEG, RLEG, HEAD, CHEST
+};
+
+class Event {
+public:
+	virtual ~Event() {}
+	virtual void onMove(Entity* entity) {}
+	virtual void onLeave(Entity* entity) {}
+	virtual void onDeath(Entity* entity) {}
+	virtual void onHit(Entity* entity, DamageLocation dl) {}
+};
 
 class Entity {
 private:
@@ -24,9 +37,11 @@ private:
 	unsigned int m_EntityID;
 
 	int m_JumpTime = 0;
+protected:
+	Event* m_Event;
 public: 
-	Entity(PhysicsEngine* physEngine, GLuint modelID, unsigned int entityID);
-	Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID);
+	Entity(PhysicsEngine* physEngine, GLuint modelID, unsigned int entityID, Event* event);
+	Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, Event* event);
 	~Entity();
 
 	int Update(std::vector<Terrain::Terrain*> terrains, float delta, bool isServer);

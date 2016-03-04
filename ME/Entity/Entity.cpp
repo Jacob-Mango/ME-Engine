@@ -1,9 +1,9 @@
 #include "Entity.h"
 
-Entity::Entity(PhysicsEngine* physEngine, GLuint modelID, unsigned int entityID) : Entity(physEngine, glm::vec3(0.0f), glm::vec3(0.0f), modelID, entityID) {
+Entity::Entity(PhysicsEngine* physEngine, GLuint modelID, unsigned int entityID, Event* event) : Entity(physEngine, glm::vec3(0.0f), glm::vec3(0.0f), modelID, entityID, event) {
 }
 
-Entity::Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID) : m_ModelID(modelID), m_EntityID(entityID) {
+Entity::Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation, GLuint modelID, unsigned int entityID, Event* event) : m_ModelID(modelID), m_EntityID(entityID), m_Event(event) {
 	switch (modelID) {
 	default:
 	case 0:
@@ -13,7 +13,7 @@ Entity::Entity(PhysicsEngine* physEngine, glm::vec3 position, glm::vec3 rotation
 		m_RigidBody = physEngine->CreateSphere(position, rotation, 1.0f, 1.0f);
 		break;
 	case 2:
-		m_RigidBody = physEngine->CreateCapsule(position, rotation, 1.0f, 1.0f, 1.0f);
+		m_RigidBody = physEngine->CreateCapsule(position, rotation, 0.5f, 2.0f, 1.0f);
 		break;
 	}
 	m_Direction = glm::vec4(0);
